@@ -1,0 +1,34 @@
+body {
+    background-color: #e8e8e8;
+    color: #2d49a6;
+}
+
+ul {
+    background-color: #3399ff;
+    padding: 20px 40px;
+    list-style: none;
+}
+
+ul li {
+    display: inline;
+}
+
+ul li a:link {
+    text-decoration: none;
+    color: #334d5c;
+    background-color: #cce5ff;
+    padding: 5px;
+    text-transform: capitalize;
+}
+
+ul li a:hover {
+    color: #f2cb00;
+}
+
+ul li a:active {
+    color: #00bf9b;
+}
+
+ul li a:visited {
+    color: #e07c45;
+}
