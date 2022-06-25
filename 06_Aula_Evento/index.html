@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .contPers {
+            width: 150px;
+            height: 50px;
+            background-color: #00008b;
+            color: #fff;
+            padding: 40px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Eventos - Onclick</h1>
+    <button onclick="carConteudo()">Carregar conteudo</button>
+    <p id="conteudo"></p>
+
+    <h1>Eventos - onmouseOver e onmouseout</h1>
+    <div onmouseover="mouseOver()" onmouseout="mouseOut()" class="contPers" id="mouseAlt">Passe o mouse</div>
+
+    <h1>Eventos - onchange e onkeyup</h1>
+    <form>
+        Nome: <input type="text" name="nome" id="nome" onchange="converterTexto()"><br><br>
+
+        <div id="erroSenha"></div>
+        senha: <input type="password" name="senha" id="senha" onkeyup="validarSenha()"><br><br>
+    </form>
+
+    <script src="personalizado.js"></script>
+</body>
+</html>
