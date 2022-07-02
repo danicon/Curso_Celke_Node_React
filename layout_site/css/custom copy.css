@@ -241,7 +241,7 @@ section {
 
 .premium .title {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 50px;
     font-weight: 400;
     font-size: 35px;
 }
@@ -321,7 +321,7 @@ section {
 
 /* Rodape */
 footer {
-    background-color: #121721;
+    background-color: #0c0f16;
     padding: 25px 23px;
     color: #fff;
     text-align: center;
@@ -334,92 +334,4 @@ footer span a {
 
 footer span a:hover {
     color: #fff;
-}
-
-/* Sobre empresa */
-.about {
-    color: #fff;
-    background-color: #0c0f16;
-    font-family: 'Poppins', sans-serif;
-}
-
-.about .title {
-    text-align: center;
-    margin-bottom: 50px;
-    font-weight: 400;
-    font-size: 35px;
-    padding-top: 50px;
-}
-
-.about .about-content {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 50px;
-    background-color: #121721;
-    border-radius: 6px;
-    padding: 30px;
-}
-
-.about .about-content .left {
-    width: 40%;
-}
-
-.about .about-content .left img {
-    width: 400px;
-    height: 400px;
-    object-fit: cover;
-    border-radius: 6px;
-}
-
-.about .about-content .right {
-    width: 60%;
-}
-
-.about .about-content .right .text {
-    font-size: 25px;
-    font-weight: 400;
-    margin-bottom: 10px;
-}
-
-.about .about-content .right p {
-    text-align: justify;
-}
-
-@media (max-width: 1104px) {
-    .about .about-content .left img {
-        width: 300px;
-        height: 300px;
-    }
-
-    .about .about-content .right {
-        padding-left: 10px;
-    }
-}
-
-@media (max-width: 947px) {
-    .about .about-content .column {
-        width: 100%;
-    }
-
-    .about .about-content .left {
-        display: flex;
-        justify-content: center;
-        margin: 0 auto 60px;
-    }
-
-    .about .about-content .right {
-        flex: 100%;
-    }
-
-    .about .about-content .right {
-        padding-left: 0;
-    }
-}
-
-@media (max-width: 500px) {
-    .about .title {
-        margin-top: 50px;
-    }
 }
