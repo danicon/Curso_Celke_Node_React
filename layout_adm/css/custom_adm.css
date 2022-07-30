@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@300;400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Ubuntu", sans-serif;
+}
+
+:root {
+    --site-color: #3a7afe;
+    --main-color: #ebeef6;
+    --active-color: #d4def7;
+    --bg-color: #ecedf0;
+    --second-color: #f1f1f1;
+    --third-color: #9fa7bd;
+    --main-bg-color: #192039;
+    --second-bg-color: #1e2746;
+    --third-bg-color: #3a7afe;
+    --fourth-bg-color: #131b38;
+    --primary-color: #0088cc;
+    --success-color: #47a447;
+    --info-color: #5bc0de;
+    --warning-color: #ed9c28;
+    --danger-color: #d2322d;
+}
+
+body {
+    background-color: var(--main-color);
+}
+
+.navbar {
+    color: var(--main-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--fourth-bg-color);
+    position: sticky;
+    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.12);
+    padding: 5px 15px;
+    font-size: 17px;
+    top: 0;
+    z-index: 1;
+}
+
+.navbar .navbar-content {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .bars, .notification {
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.logo {
+    width: 50px;
+}
+
+.notification, .avatar {
+    cursor: pointer;
+    position: relative;
+}
+
+.notification .number {
+    position: absolute;
+    font-size: 13px;
+    font-weight: bold;
+    background-color: var(--site-color);
+    width: 20px;
+    color: var(--second-color);
+    height: 20px;
+    border-radius: 50%;
+    right: -10px;
+    top: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/*  Dropdown navbar */
+.dropdow-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+    background-color: var(--main-bg-color);
+    width: 280px;
+    border-radius: 7px;
+    display: none;
+}
+
+.dropdow-content {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.dropdow-menu li, .dropdow-menu .item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid var(--second-bg-color);
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.dropdow-menu li img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.dropdow-menu li .text {
+    font-style: italic;
+    margin-left: 20px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.dropdow-menu li:hover,
+.dropdow-menu .item:hover {
+    background-color: var(--second-bg-color);
+}
+
+/* Apresenta a msg inteira */
+.dropdow-menu li:hover .text {
+    white-space: pre-wrap;
+}
+
+.dropdow-menu .item span {
+    margin-right: 15px;
+}
+
+.dropdow-menu.setting {
+    width: 150px;
+}
+
+.dropdow-menu.active {
+    display: block;
+}
+
+/* Inicio conteudo */
+.content {
+    display: flex;
+}
