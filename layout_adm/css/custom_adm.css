@@ -15,6 +15,8 @@
     --second-color: #f1f1f1;
     --third-color: #9fa7bd;
     --fourth-color: #fff;
+    --fifth-color: #000;
+    --sixth-color: #222;
     --main-bg-color: #192039;
     --second-bg-color: #1e2746;
     --third-bg-color: #3a7afe;
@@ -302,4 +304,151 @@ body {
     .wrapper .row {
         padding: 10px 0;
     }
+}
+
+/* Listar */
+.row .top-list {
+    width: 100%;
+    overflow: hidden;
+}
+
+.top-list .title-content {
+    float: left;
+    color: var(--main-bg-color);
+    padding: 10px 16px;
+    font-size: 17px;
+}
+
+.top-list .top-list-rigth {
+    padding: 10px 5px 5px 0;
+    float: right;
+}
+
+.table-list {
+    margin: 15px;
+    width: 100%;
+}
+
+.table-list .list-head .list-head-content {
+    background-color: var(--main-color);
+    color: var(--fourth-bg-color);
+    padding: 10px;
+}
+
+.table-list .list-body .list-body-content {
+    background-color: var(--fourth-color);
+    color: var(--fourth-bg-color);
+    padding: 8px;
+}
+
+/* Paginação */
+.content-pagination {
+    margin: 15px 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pagination {
+    display: inline-block;
+    font-size: 15px;
+}
+
+.pagination a {
+    color: var(--fourth-bg-color);
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.pagination a.active {
+    background-color: var(--second-bg-color);
+    color: var(--fourth-color);
+}
+
+.pagination a:hover:not(.active) {
+    background-color: var(--main-color);
+}
+
+/* Botão */
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--fourth-color);
+    padding: 5px 8px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all .3s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--fourth-color);
+    color: var(--primary-color);
+}
+
+.btn-success {
+    background-color: var(--success-color);
+    color: var(--fourth-color);
+    padding: 5px 8px;
+    border: 1px solid var(--success-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all .3s ease;
+}
+
+.btn-success:hover {
+    background-color: var(--fourth-color);
+    color: var(--success-color);
+}
+
+.btn-warning {
+    background-color: var(--warning-color);
+    color: var(--fourth-color);
+    padding: 5px 8px;
+    border: 1px solid var(--warning-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all .3s ease;
+}
+
+.btn-warning:hover {
+    background-color: var(--fourth-color);
+    color: var(--warning-color);
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: var(--fourth-color);
+    padding: 5px 8px;
+    border: 1px solid var(--danger-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all .3s ease;
+}
+
+.btn-danger:hover {
+    background-color: var(--fourth-color);
+    color: var(--danger-color);
+}
+
+.btn-info {
+    background-color: var(--info-color);
+    color: var(--sixth-color);
+    padding: 5px 8px;
+    border: 1px solid var(--info-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all .3s ease;
+}
+
+.btn-info:hover {
+    background-color: var(--fourth-color);
+    color: var(--info-color);
 }
