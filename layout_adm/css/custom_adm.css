@@ -341,6 +341,30 @@ body {
     padding: 8px;
 }
 
+@media (max-width: 540px) {
+    .table-sm-none {
+        display: none;
+    }
+}
+
+@media (max-width: 720px) {
+    .table-md-none {
+        display: none;
+    }
+}
+
+@media (max-width: 960px) {
+    .table-lg-none {
+        display: none;
+    }
+}
+
+@media (max-width: 1140px) {
+    .table-xl-none {
+        display: none;
+    }
+}
+
 /* Paginação */
 .content-pagination {
     margin: 15px 0;
@@ -358,7 +382,7 @@ body {
 .pagination a {
     color: var(--fourth-bg-color);
     float: left;
-    padding: 8px 16px;
+    padding: 8px 10px;
     text-decoration: none;
     transition: background-color .3s;
 }
@@ -451,4 +475,51 @@ body {
 .btn-info:hover {
     background-color: var(--fourth-color);
     color: var(--info-color);
+}
+
+.dropdown-btn-action {
+    background-color: var(--primary-color);
+    color: var(--fourth-color);
+    padding: 5px 8px;
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 15px;
+    transition: all .3s ease;
+}
+
+.dropdown-btn-action:hover, .dropdown-btn-action:focus {
+    background-color: var(--fourth-color);
+    color: var(--primary-color);
+}
+
+.dropdown-action {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-action-item {
+    display: none;
+    position: absolute;
+    background-color: var(--fourth-color);
+    min-width: 130px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0 rgba(0, 0, 0, 0.2);
+    right: 0;
+    z-index: 1;
+}
+
+.dropdown-action-item a {
+    color: var(--sixth-color);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-action-item a:hover {
+    background-color: var(--main-color);
+}
+
+.show-dropdown-action {
+    display: block;
 }

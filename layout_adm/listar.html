@@ -99,7 +99,10 @@
                         <tr>
                             <th class="list-head-content">ID</th>
                             <th class="list-head-content">Nome</th>
-                            <th class="list-head-content">E-mail</th>
+                            <th class="list-head-content table-sm-none">E-mail</th>
+                            <th class="list-head-content table-sm-none">Coluna 4</th>
+                            <th class="list-head-content table-md-none">Coluna 5</th>
+                            <th class="list-head-content table-lg-none">Coluna 6</th>
                             <th class="list-head-content">Ações</th>
                         </tr>
                     </thead>
@@ -107,22 +110,136 @@
                         <tr>
                             <td class="list-body-content">1</td>
                             <td class="list-body-content">Daniel</td>
-                            <td class="list-body-content">dancon.alferes@gmail.com</td>
+                            <td class="list-body-content table-sm-none">dancon.alferes@gmail.com</td>
+                            <td class="list-body-content table-sm-none">Coluna 4</td>
+                            <td class="list-body-content table-md-none">Coluna 5</td>
+                            <td class="list-body-content table-lg-none">Coluna 6</td>
                             <td class="list-body-content">
-                                <button type="button" class="btn-primary">Visualizar</button>
+                                <!-- <button type="button" class="btn-primary">Visualizar</button>
                                 <button type="button" class="btn-warning">Editar</button>
-                                <button type="button" class="btn-danger">Apagar</button>
+                                <button type="button" class="btn-danger">Apagar</button> -->
+                                <div class="dropdown-action">
+                                    <button onclick="actionDropdown(1)" class="dropdown-btn-action">Ações</button>
+                                    <div id="actionDropdown1" class="dropdown-action-item">
+                                        <a href="#">Visualizar</a>
+                                        <a href="#">Editar</a>
+                                        <a href="#">Apagar</a>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                         
                         <tr>
                             <td class="list-body-content">2</td>
                             <td class="list-body-content">Cesar</td>
-                            <td class="list-body-content">Cesar@gmail.com</td>
+                            <td class="list-body-content table-sm-none">Cesar@gmail.com</td>
+                            <td class="list-body-content table-sm-none">Coluna 4</td>
+                            <td class="list-body-content table-md-none">Coluna 5</td>
+                            <td class="list-body-content table-lg-none">Coluna 6</td>
                             <td class="list-body-content">
-                                <button type="button" class="btn-primary">Visualizar</button>
-                                <button type="button" class="btn-warning">Editar</button>
-                                <button type="button" class="btn-danger">Apagar</button>
+                                <div class="dropdown-action">
+                                    <button onclick="actionDropdown(2)" class="dropdown-btn-action">Ações</button>
+                                    <div id="actionDropdown2" class="dropdown-action-item">
+                                        <a href="#">Visualizar</a>
+                                        <a href="#">Editar</a>
+                                        <a href="#">Apagar</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="list-body-content">3</td>
+                            <td class="list-body-content">Val</td>
+                            <td class="list-body-content table-sm-none">Val@gmail.com</td>
+                            <td class="list-body-content table-sm-none">Coluna 4</td>
+                            <td class="list-body-content table-md-none">Coluna 5</td>
+                            <td class="list-body-content table-lg-none">Coluna 6</td>
+                            <td class="list-body-content">
+                                <div class="dropdown-action">
+                                    <button onclick="actionDropdown(3)" class="dropdown-btn-action">Ações</button>
+                                    <div id="actionDropdown3" class="dropdown-action-item">
+                                        <a href="#">Visualizar</a>
+                                        <a href="#">Editar</a>
+                                        <a href="#">Apagar</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="list-body-content">4</td>
+                            <td class="list-body-content">Andre</td>
+                            <td class="list-body-content table-sm-none">Andre@gmail.com</td>
+                            <td class="list-body-content table-sm-none">Coluna 4</td>
+                            <td class="list-body-content table-md-none">Coluna 5</td>
+                            <td class="list-body-content table-lg-none">Coluna 6</td>
+                            <td class="list-body-content">
+                                <div class="dropdown-action">
+                                    <button onclick="actionDropdown(4)" class="dropdown-btn-action">Ações</button>
+                                    <div id="actionDropdown4" class="dropdown-action-item">
+                                        <a href="#">Visualizar</a>
+                                        <a href="#">Editar</a>
+                                        <a href="#">Apagar</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="list-body-content">5</td>
+                            <td class="list-body-content">Ilda</td>
+                            <td class="list-body-content table-sm-none">Ilda@gmail.com</td>
+                            <td class="list-body-content table-sm-none">Coluna 4</td>
+                            <td class="list-body-content table-md-none">Coluna 5</td>
+                            <td class="list-body-content table-lg-none">Coluna 6</td>
+                            <td class="list-body-content">
+                                <div class="dropdown-action">
+                                    <button onclick="actionDropdown(5)" class="dropdown-btn-action">Ações</button>
+                                    <div id="actionDropdown5" class="dropdown-action-item">
+                                        <a href="#">Visualizar</a>
+                                        <a href="#">Editar</a>
+                                        <a href="#">Apagar</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="list-body-content">6</td>
+                            <td class="list-body-content">João</td>
+                            <td class="list-body-content table-sm-none">joao@gmail.com</td>
+                            <td class="list-body-content table-sm-none">Coluna 4</td>
+                            <td class="list-body-content table-md-none">Coluna 5</td>
+                            <td class="list-body-content table-lg-none">Coluna 6</td>
+                            <td class="list-body-content">
+                                <div class="dropdown-action">
+                                    <button onclick="actionDropdown(6)" class="dropdown-btn-action">Ações</button>
+                                    <div id="actionDropdown6" class="dropdown-action-item">
+                                        <a href="#">Visualizar</a>
+                                        <a href="#">Editar</a>
+                                        <a href="#">Apagar</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="list-body-content">7</td>
+                            <td class="list-body-content">Jessica</td>
+                            <td class="list-body-content table-sm-none">Jessica@gmail.com</td>
+                            <td class="list-body-content table-sm-none">Coluna 4</td>
+                            <td class="list-body-content table-md-none">Coluna 5</td>
+                            <td class="list-body-content table-lg-none">Coluna 6</td>
+                            <td class="list-body-content">
+                                <div class="dropdown-action">
+                                    <button onclick="actionDropdown(7)" class="dropdown-btn-action">Ações</button>
+                                    <div id="actionDropdown7" class="dropdown-action-item">
+                                        <a href="#">Visualizar</a>
+                                        <a href="#">Editar</a>
+                                        <a href="#">Apagar</a>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
