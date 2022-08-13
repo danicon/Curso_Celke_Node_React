@@ -79,37 +79,65 @@
     <div class="content">
         <!-- Inicio da sidebar -->
         <div class="sidebar">
-            <a href="index.html" class="sidebar-nav active"><i class="icon fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
+            <a href="index.html" class="sidebar-nav"><i class="icon fa-solid fa-gauge-high"></i><span>Dashboard</span></a>
             <a href="listar.html" class="sidebar-nav"><i class="icon fa-solid fa-users"></i><span>Listar</span></a>
-            <a href="formulario.html" class="sidebar-nav"><i class="icon fa-solid fa-edit"></i><span>Formulário</span></a>
+            <a href="formulario.html" class="sidebar-nav active"><i class="icon fa-solid fa-edit"></i><span>Formulário</span></a>
             <a href="login.html" class="sidebar-nav"><i class="icon fa-solid fa-right-from-bracket"></i><span>Sair</span></a>
         </div>
 
         <!-- Conteudo -->
         <div class="wrapper">
             <div class="row">
-                <div class="box box-first">
-                    <span class="fa-solid fa-users"></span>
-                    <span>397</span>
-                    <span>Usuários</span>
+                <div class="top-content-adm">
+                    <span class="title-content">Cadastrar</span>
+                    <div class="top-content-adm-rigth">
+                        <button type="button" class="btn-info">Listar</button>
+                    </div>
                 </div>
 
-                <div class="box box-second">
-                    <span class="fa-solid fa-truck-ramp-box"></span>
-                    <span>43</span>
-                    <span>Entregas</span>
-                </div>
+                <div class="content-adm">
+                    <form class="form-adm">
+                        <div class="row-input">
+                            <div class="column">
+                                <labe class="title-input">Nome</label>
+                                <input type="text" name="name" id="name" class="input-adm" placeholder="Nome completo">
+                            </div>
 
-                <div class="box box-third">
-                    <span class="fa-solid fa-circle-check"></span>
-                    <span>12</span>
-                    <span>Completas</span>
-                </div>
+                            <div class="column">
+                                <labe class="title-input">E-mail</label>
+                                <input type="email" name="email" id="email" class="input-adm" placeholder="Melhor e-mail">
+                            </div>
+                        </div>
 
-                <div class="box box-fourth">
-                    <span class="fa-solid fa-triangle-exclamation"></span>
-                    <span>3</span>
-                    <span>Alertas</span>
+                        <div class="row-input">
+                            <div class="column">
+                                <labe class="title-input">Campo 3</label>
+                                <input type="text" name="campo 3" id="campo 3" class="input-adm" placeholder="campo 3">
+                            </div>
+
+                            <div class="column">
+                                <labe class="title-input">Campo 4</label>
+                                <input type="text" name="campo 4" id="campo 4" class="input-adm" placeholder="campo 4">
+                            </div>
+                        </div>
+
+                        <div class="row-input">
+                            <div class="column">
+                                <labe class="title-input">Campo 5</label>
+                                <input type="text" name="campo 5" id="campo 5" class="input-adm" placeholder="campo 5">
+                            </div>
+                        </div>
+
+                        <div class="row-input">
+                            <div class="column">
+                                <labe class="title-input">Descrição</label>
+                                <textarea id="descricao" class="input-adm" placeholder="Descrição" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-success">Cadastrar</button>
+
+                    </form>
                 </div>
             </div>
         </div>
