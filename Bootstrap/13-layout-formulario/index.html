@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/custom.css">
+
+    <title>Formulario</title>
+</head>
+
+<body>
+    <div class="container conteudo-pg">
+        <h2>Formulário de Cadastro</h2>
+        <div class="mb-3">
+            <label for="nome_usuario" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome_usuario" placeholder="Nome completo">
+        </div>
+
+        <div class="mb-3">
+            <label for="email_usuario" class="form-label">E-mail</label>
+            <input type="email" class="form-control" id="email_usuario" placeholder="O melhor e-mail">
+        </div>
+
+        <h2>Formulario para cadastrar usuário</h2>
+        <form class="row g-3">
+
+            <div class="col-12">
+                <label for="inputNome" class="form-label">Nome</label>
+                <input type="text" class="form-control" id="inputNome" placeholder="1Nome completo">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputEmail4" class="form-label">E-mail</label>
+                <input type="email" class="form-control" id="inputEmail4">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputPassword4" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="inputPassword4">
+            </div>
+
+            <div class="col-md-6">
+                <label for="inputCity" class="form-label">Cidade</label>
+                <input type="text" class="form-control" id="inputCity">
+            </div>
+
+            <div class="col-md-4">
+                <label for="inputState" class="form-label">Estado</label>
+                <select id="inputState" class="form-select">
+                    <option selected>Selecione...</option>
+                    <option>PR</option>
+                    <option>RR</option>
+                    <option>SP</option>
+                </select>
+            </div>
+
+            <div class="col-md-2">
+                <label for="inputCEP" class="form-label">CEP</label>
+                <input type="text" class="form-control" id="inputCEP">
+            </div>
+
+            <div class="col-12">
+                <button type="submit" class="btn btn-outline-success">Cadastrar</button>
+            </div>
+        </form>
+
+        <hr>
+        <h2>Formulário Horizontal</h2>
+        <form>
+            <div class="row mb-3">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">E-mail</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" id="inputEmail3">
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">Senha</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" id="inputPassword3">
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+        </form>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
