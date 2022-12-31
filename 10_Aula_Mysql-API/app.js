@@ -4,12 +4,22 @@ const app = express();
 
 app.use(express.json());
 
-app.get('/usuarios', (req, res) => {
-    return res.json({
-        erro: false,
-        usuario: "Daniel",
-        email: "dancon.alferes@gmail.com"
+app.get('/users', async (req, res) => {
+    await Usuario.findAll({
+        attributes: ['id', 'name', 'email'],
+        order: [['id', 'DESC']]})
+    .then((users) => {
+        return res.json({
+            erro: false,
+            users
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: false,
+            mensagem: "Erro: Usuário não cadastrado com sucesso!"
+        })
     })
+
 })
 
 app.get('/usuario/:id', (req, res) => {
@@ -25,8 +35,8 @@ app.get('/usuario/:id', (req, res) => {
 app.post('/user', async (req, res) => {
     const {name, email} = req.body;
     
-    await Usuario.create(req.body).
-    then(() => {
+    await Usuario.create(req.body)
+    .then(() => {
         return res.json({
             erro: false,
             mensagem: "Usuário cadastrado com sucesso!"
