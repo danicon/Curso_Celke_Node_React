@@ -1,11 +1,11 @@
 const express = require('express')
-const Usuario = require('./models/Usuario')
+const User = require('./models/User')
 const app = express();
 
 app.use(express.json());
 
 app.get('/users', async (req, res) => {
-    await Usuario.findAll({
+    await User.findAll({
         attributes: ['id', 'name', 'email'],
         order: [['id', 'DESC']]})
     .then((users) => {
@@ -15,27 +15,36 @@ app.get('/users', async (req, res) => {
         })
     }).catch(() => {
         return res.status(400).json({
-            erro: false,
-            mensagem: "Erro: Usuário não cadastrado com sucesso!"
+            erro: true,
+            mensagem: "Erro: Usuários encontrados com sucesso!"
         })
     })
 
 })
 
-app.get('/usuario/:id', (req, res) => {
+app.get('/user/:id', async (req, res) => {
     const {id} = req.params;
-    return res.json({
-        erro: false,
-        id: id,
-        usuario: "Daniel",
-        email: "dancon.alferes@gmail.com"
+
+    // await User.findAll({ where: { id: id} })
+    await User.findByPk(id)
+    .then((user) => {
+        return res.json({
+            erro: false,
+            user
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Usuário encontrado com sucesso!"
+        })
     })
+
 })
 
 app.post('/user', async (req, res) => {
     const {name, email} = req.body;
     
-    await Usuario.create(req.body)
+    await User.create(req.body)
     .then(() => {
         return res.json({
             erro: false,
@@ -43,28 +52,45 @@ app.post('/user', async (req, res) => {
         })
     }).catch(() => {
         return res.status(400).json({
-            erro: false,
+            erro: true,
             mensagem: "Erro: Usuário não cadastrado com sucesso!"
         })
     })
 
 })
 
-app.put('/usuario', (req, res) => {
-    const {id, nome, email} = req.body;
-    return res.json({
-        erro: false,
-        id,
-        nome,
-        email
+app.put('/user', async (req, res) => {
+    const {id, name, email} = req.body;
+
+    await User.update(req.body, {where: {id}})
+    .then(() => {
+        return res.json({
+            erro: false,
+            mensagem: "Usuário editado com sucesso!"
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Usuário não editado com sucesso!"
+        })
     })
+
 })
 
-app.delete('/usuario/:id', (req, res) => {
+app.delete('/User/:id', async (req, res) => {
     const {id} = req.params;
-    return res.json({
-        erro: false,
-        id
+
+    await User.destroy({ where: {id}})
+    .then(() => {
+        return res.json({
+            erro: false,
+            mensagem: "Usuário apagado com sucesso!"
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Usuário não apagado com sucesso!"
+        })
     })
 })
 

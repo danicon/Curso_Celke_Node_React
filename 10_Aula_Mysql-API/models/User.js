@@ -1,7 +1,7 @@
 const Sequileze = require("sequelize")
 const db = require('./db')
 
-const Usuario = db.define('users', {
+const Users = db.define('users', {
     id: {
         type: Sequileze.INTEGER,
         autoIncrement: true,
@@ -18,6 +18,6 @@ const Usuario = db.define('users', {
     }
 })
 
-Usuario.sync()
+Users.sync()
 
-module.exports = Usuario;
+module.exports = Users;
