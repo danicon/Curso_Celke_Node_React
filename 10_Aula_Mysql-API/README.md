@@ -71,3 +71,5 @@ sequelize é uma dependencia js falcilita o gerenciamento de um BD sql
 Instalar o drive do BD
 # npm install --save mysql2
 
+Instalar Modulo para criptografar a senha
+# npm install --save bcryptjs

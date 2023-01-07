@@ -1,12 +1,13 @@
 const express = require('express')
 const User = require('./models/User')
+const bcrypt = require('bcryptjs')
 const app = express();
 
 app.use(express.json());
 
 app.get('/users', async (req, res) => {
     await User.findAll({
-        attributes: ['id', 'name', 'email'],
+        attributes: ['id', 'name', 'email', 'password'],
         order: [['id', 'DESC']]})
     .then((users) => {
         return res.json({
@@ -42,9 +43,10 @@ app.get('/user/:id', async (req, res) => {
 })
 
 app.post('/user', async (req, res) => {
-    const {name, email} = req.body;
+    var dados = req.body;
+    dados.password = await bcrypt.hash(dados.password, 8)
     
-    await User.create(req.body)
+    await User.create(dados)
     .then(() => {
         return res.json({
             erro: false,
@@ -60,7 +62,7 @@ app.post('/user', async (req, res) => {
 })
 
 app.put('/user', async (req, res) => {
-    const {id, name, email} = req.body;
+    const {id} = req.body;
 
     await User.update(req.body, {where: {id}})
     .then(() => {
@@ -72,6 +74,26 @@ app.put('/user', async (req, res) => {
         return res.status(400).json({
             erro: true,
             mensagem: "Erro: Usuário não editado com sucesso!"
+        })
+    })
+
+})
+
+app.put('/user-senha', async (req, res) => {
+    const {id, password} = req.body;
+
+    var senhaCrypt = await bcrypt.hash(password, 8)
+
+    await User.update({password: senhaCrypt}, {where: {id}})
+    .then(() => {
+        return res.json({
+            erro: false,
+            mensagem: "Senha editado com sucesso!"
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Senha não editado com sucesso!"
         })
     })
 

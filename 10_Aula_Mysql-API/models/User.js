@@ -15,9 +15,16 @@ const Users = db.define('users', {
     email: {
         type: Sequileze.STRING,
         allowNull: false
+    },
+    password: {
+        type: Sequileze.STRING
     }
 })
 
-Users.sync()
+// Criar a tabela
+// Users.sync()
+
+// Verificar se há alguma diferença na tabela, realiza alteração
+// Users.sync({ alter: true })
 
 module.exports = Users;
