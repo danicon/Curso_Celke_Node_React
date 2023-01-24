@@ -116,7 +116,32 @@ app.delete('/User/:id', async (req, res) => {
     })
 })
 
+app.post('/login', async (req, res) => {
+    const user = await User.findOne({
+        attributes: ['id', 'name', 'email', 'password'],
+        where: {
+            email: req.body.email
+        }
+    })
+    if(user === null) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Usuário não encontrado!"
+        })
+    }
 
+    if(!(await bcrypt.compare(req.body.password, user.password))) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Senha invalida!"
+        })
+    }
+
+    return res.json({
+        erro: false,
+        mensagem: "Login realizado com sucesso!"
+    })
+})
 
 app.listen(8080, () => {
     console.log("Servidor iniciado na porta 8080 http://localhost:8080")
