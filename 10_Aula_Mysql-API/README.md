@@ -73,3 +73,6 @@ Instalar o drive do BD
 
 Instalar Modulo para criptografar a senha
 # npm install --save bcryptjs
+
+Instalkar a dependencia JWT
+# npm install --save jsonwebtoken
