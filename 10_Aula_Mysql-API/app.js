@@ -164,6 +164,22 @@ app.post('/login', async (req, res) => {
     })
 })
 
+app.get("/val-token", eAdmin, async (req, res) => {
+    await User.findByPk(req.userId, {attributes: ['id', 'name', 'email']})
+
+    .then((User) => {
+        return res.json({
+            erro: false,
+            User
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Necessario enviar o Login para acessar a pagina!"
+        })
+    })
+})
+
 
 app.listen(8080, () => {
     console.log("Servidor iniciado na porta 8080 http://localhost:8080")
