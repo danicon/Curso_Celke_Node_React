@@ -79,3 +79,6 @@ Instalkar a dependencia JWT
 
 Gerenciar variaveis de ambiente
 # npm install --save dotenv 
+
+Permite acesso a API
+# npm install --save cors

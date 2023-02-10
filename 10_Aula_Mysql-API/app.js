@@ -1,4 +1,6 @@
 const express = require('express')
+var cors = require('cors')
+
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
@@ -9,6 +11,14 @@ const User = require('./models/User')
 const app = express();
 
 app.use(express.json());
+
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE")
+    res.header("Access-Control-Allow-Headers", "X-PINGOTHER, Content-Type, Authorization")
+    app.use(cors());
+    next();
+})
 
 app.get('/users', eAdmin, async (req, res) => {
     await User.findAll({
@@ -138,7 +148,7 @@ app.post('/login', async (req, res) => {
     if(!(await bcrypt.compare(req.body.password, user.password))) {
         return res.status(400).json({
             erro: true,
-            mensagem: "Erro: Senha invalida!"
+            mensagem: "Erro: Usuário ou a Senha incorreta!"
         })
     }
 
