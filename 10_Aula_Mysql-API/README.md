@@ -76,3 +76,6 @@ Instalar Modulo para criptografar a senha
 
 Instalkar a dependencia JWT
 # npm install --save jsonwebtoken
+
+Gerenciar variaveis de ambiente
+# npm install --save dotenv 
