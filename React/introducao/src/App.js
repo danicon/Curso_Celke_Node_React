@@ -1,18 +1,13 @@
-import React from 'react';
-import Header from './Components/Header'
-import Article from './Components/Article'
-import Menu from './Components/Menu'
-import Aside from './Components/Aside'
-import Footer from './Components/Footer'
+import React, {useState} from 'react';
 
 function App() {
+
+  const [nome, setNome] = useState('Daniel')
+
   return (
     <div>
-      <Header />
-      <Menu />
-      <Article />
-      <Aside />
-      <Footer />
+      <p>{nome}</p>
+      <button onClick={() => setNome("Daniel Alferes")}>Alterar</button>
     </div>
   );
 }
