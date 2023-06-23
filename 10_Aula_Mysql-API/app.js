@@ -132,6 +132,15 @@ app.delete('/User/:id', eAdmin, async (req, res) => {
 })
 
 app.post('/login', async (req, res) => {
+
+    await sleep(1000)
+
+    function sleep(ms) {
+        return new Promise((resolve) => {
+            setTimeout(resolve, ms)
+        })
+    }
+
     const user = await User.findOne({
         attributes: ['id', 'name', 'email', 'password'],
         where: {
