@@ -16,8 +16,11 @@ Acessar o diretório do projeto
 Rodar o projeto React 
 ### npm start
 
-Gerenciar rotas
-# npm install react-router-dom
+Gerenciar as rotas
+### npm install react-router-dom
 
-Chamada para api
-# npm install --save axios
+Realizar chamada para API
+### npm install --save axios
+
+Utilizado para mudar de página e renderizar a nova página sem recarregar toda aplicação
+### npm install --save history@4.10.1

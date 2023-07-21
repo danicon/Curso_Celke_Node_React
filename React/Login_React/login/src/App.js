@@ -1,22 +1,20 @@
-import React from 'react'
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
+import React from 'react';
+import { Router } from 'react-router-dom';
 
-import { Login } from './pages/Login'
-import { Dashboard } from './pages/Dashboard'
+import Routes from './routes/routesAdm';
+
+import history from './services/history';
+
+import { AuthProvider } from './Context/AuthContext';
 
 function App() {
   return (
     <div>
-      <Router>
-        <Routes>
-          <Route exact path='/' element={< Login />} />
-          <Route path='/dashboard' element={< Dashboard />} />
-        </Routes>
-      </Router>
+      <AuthProvider>
+        <Router history={history}>
+          <Routes />
+        </Router>
+      </AuthProvider>
     </div>
   );
 }
