@@ -58,8 +58,9 @@ export const AddUser = () => {
             <Link to="/users">Usuários</Link><br/>
 
             <h1>Cadastrar Usuário</h1>
+            <Link to="/users">Listar</Link><br/>
 
-            {status.type === 'error' ? <p>{status.mensagem}</p> : ""}
+            {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
             {status.type === 'success' ? 
             <Redirect to={{
                 pathname: '/users',

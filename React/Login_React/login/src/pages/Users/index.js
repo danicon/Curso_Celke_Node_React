@@ -58,14 +58,16 @@ export const Users = () => {
 
             <Link to="/add-user">Cadastrar</Link><br/><hr/>
 
-            {status.type === 'error'? <p>{status.mensagem}</p> : ""}
-            {status.type === 'success'? <p>{status.mensagem}</p> : ""}
+            {status.type === 'error'? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
+            {status.type === 'success'? <p style={{color: "green"}}>{status.mensagem}</p> : ""}
 
             {data.map(user => (
                 <div key={user.id}>
                     <span>{user.id}</span><br/>
                     <span>{user.name}</span><br/>
-                    <span>{user.email}</span><br/><hr/>
+                    <span>{user.email}</span><br/><br/>
+                    <Link to={'/view-user/' + user.id}><button type='button'>Visualizar</button></Link><br/><br/>
+                    <Link to={'/edit-user/' + user.id}><button type='button'>Editar</button></Link><br/><br/><hr/>
                 </div>
             ))}
         </>

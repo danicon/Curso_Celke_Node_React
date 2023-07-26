@@ -72,8 +72,8 @@ export const Login = () => {
         <div>
             <h1>Login</h1>
 
-            {status.type === 'error' ? <p>{status.mensagem}</p> : ""}
-            {status.type === 'success' ? <p>{status.mensagem}</p> : ""}
+            {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
+            {status.type === 'success' ? <p style={{color: "#green"}}>{status.mensagem}</p> : ""}
             {status.loading ? <p>Validando...</p> : ""}
 
             <form onSubmit={loginSubmit}>
