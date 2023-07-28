@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {Link, Redirect} from 'react-router-dom'
 
+import { servDeleteUser } from '../../services/servDeleteUser';
 import api from '../../config/configApi'
 
 export const ViewUser = (props) => {
@@ -31,19 +32,19 @@ export const ViewUser = (props) => {
                     setData(response.data.user)
                 } else {
                     setStatus({
-                        type: 'error',
+                        type: 'redError',
                         mensagem: "Erro: Usuário não encontrado!"
                     })
                 }   
             }).catch((err) => {
                 if(err.response) {
                     setStatus({
-                        type: 'error',
+                        type: 'redError',
                         mensagem: err.response.data.mensagem
                     })
                 } else {
                     setStatus({
-                        type: 'error',
+                        type: 'redError',
                         mensagem: "Erro: Tente mais tarde!"
                     })
                 }
@@ -52,6 +53,31 @@ export const ViewUser = (props) => {
         getUser()
     }, [id])
 
+    const deleteUser = async (idUser) => {
+
+        const response = await servDeleteUser(idUser)
+        // console.log(response)
+
+        if(response) {
+            if(response.type === "success") {
+                setStatus({
+                    type: "redSuccess",
+                    mensagem: response.mensagem
+                })
+            } else {
+                setStatus({
+                    type: response.type,
+                    mensagem: response.mensagem
+                })
+            }
+        } else {
+            setStatus({
+                type: "redError",
+                mensagem: "Erro: Tente mais tarde!"
+            })
+        }
+    }
+
     return(
         <div>
             <Link to="/dashboard">Dashboard</Link><br/>
@@ -59,17 +85,30 @@ export const ViewUser = (props) => {
 
             <h1>Detalhes do Usuário</h1>
 
-            <Link to="/users">Listar</Link><br/>
+            <Link to="/users"><button type='button'>Listar</button></Link>{" "}
+            <Link to={"/edit-user/" + data.id}><button type='button'>Editar</button></Link>{" "}
+            <Link to="#"><button type='button' onClick={() => deleteUser(data.id)}>Apagar</button></Link>{" "}        
 
-            {status.type === 'error'? 
+            {status.type === 'redSuccess'? 
             <Redirect to={{
                 pathname: "/users",
                 state: {
-                    type: status.type,
+                    type: "success",
+                    mensagem: status.mensagem
+                }
+            }}/> : ""}
+
+            {status.type === 'redError'? 
+            <Redirect to={{
+                pathname: "/users",
+                state: {
+                    type: "error",
                     mensagem: status.mensagem
                 }
             }}/> : ""}
             {status.type === 'success'? <p style={{color: "green"}}>{status.mensagem}</p> : ""}
+            
+            <hr/>
             
             <span>{data.id}</span><br />
             <span>{data.name}</span><br />

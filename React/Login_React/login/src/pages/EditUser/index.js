@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import {Link, Redirect} from 'react-router-dom'
 
 import api from '../../config/configApi'
+import { servDeleteUser } from '../../services/servDeleteUser'
 
 export const EditUser = (props) => {
 
@@ -31,7 +32,7 @@ export const EditUser = (props) => {
         await api.put('/user', {id, name, email, password}, headers)
         .then((response) => {
             setStatus({
-                type: 'success',
+                type: 'redSuccess',
                 mensagem: response.data.mensagem
             })
         }).catch((err) => {
@@ -67,19 +68,19 @@ export const EditUser = (props) => {
                     setEmail(response.data.user.email)
                 } else {
                     setStatus({
-                        type: 'warning',
+                        type: 'reWarning',
                         mensagem: "Erro: Usuário não encontrado!"
                     })
                 }   
             }).catch((err) => {
                 if(err.response) {
                     setStatus({
-                        type: 'warning',
+                        type: 'reWarning',
                         mensagem: err.response.data.mensagem
                     })
                 } else {
                     setStatus({
-                        type: 'warning',
+                        type: 'reWarning',
                         mensagem: "Erro: Tente mais tarde!"
                     })
                 }
@@ -88,6 +89,28 @@ export const EditUser = (props) => {
         getUser()
     }, [id])
 
+    const deleteUser = async (idUser) => {
+        const response = await servDeleteUser(idUser)
+        if(response) {
+            if(response.type === "success") {
+                setStatus({
+                    type: 'redSuccess',
+                    mensagem: response.mensagem
+                })
+            } else {
+                setStatus({
+                    type: 'error',
+                    mensagem: response.mensagem
+                })
+            }
+        } else {
+            setStatus({
+                type: 'error',
+                mensagem: 'Erro: Tente mais tarde!'
+            })
+        }
+    }
+
     return (
         <div>
             <Link to="/dashboard">Dashboard</Link><br/>
@@ -95,9 +118,11 @@ export const EditUser = (props) => {
 
             <h1>Editar Usuário</h1>
 
-            <Link to="/users">Listar</Link><br/>
+            <Link to="/users"><button type='button'>Listar</button></Link>{" "}
+            <Link to={"/view-user/" + id}><button type='button'>Visualizar</button></Link>{" "}
+            <Link to="#"><button type='button' onClick={() => deleteUser(id)}>Apagar</button></Link><br/>
 
-            {status.type === 'warning'? 
+            {status.type === 'reWarning'? 
             <Redirect to={{
                 pathname: "/users",
                 state: {
@@ -105,7 +130,7 @@ export const EditUser = (props) => {
                     mensagem: status.mensagem
                 }
             }}/> : ""}
-            {status.type === 'success'? <Redirect to={{
+            {status.type === 'redSuccess'? <Redirect to={{
                 pathname: "/users",
                 state: {
                     type: "success",
