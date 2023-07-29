@@ -20,14 +20,35 @@ app.use((req, res, next) => {
     next();
 })
 
-app.get('/users', eAdmin, async (req, res) => {
+app.get('/users/:page', eAdmin, async (req, res) => {
+    const {page = 1} = req.params
+    // console.log(page)
+    const limit = 2
+    var lastPage = 1
+
+    const countUser = await User.count()
+    // console.log(countUser)
+    if(countUser === null) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Nenhum usuário encontrado!"
+        })
+    } else {
+        lastPage = Math.ceil(countUser/limit)
+    }
+
     await User.findAll({
         attributes: ['id', 'name', 'email', 'password'],
-        order: [['id', 'DESC']]})
+        order: [['id', 'ASC']],
+        offset: Number((page * limit) - limit), 
+        limit: limit
+    })
     .then((users) => {
         return res.json({
             erro: false,
-            users
+            users,
+            countUser,
+            lastPage
         })
     }).catch(() => {
         return res.status(400).json({

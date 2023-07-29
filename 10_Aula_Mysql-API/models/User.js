@@ -1,30 +1,29 @@
-const Sequileze = require("sequelize")
-const db = require('./db')
+const Sequelize = require('sequelize');
+const db = require('./db');
 
-const Users = db.define('users', {
-    id: {
-        type: Sequileze.INTEGER,
+const User = db.define('users',{
+    id:{
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     name: {
-        type: Sequileze.STRING,
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull: false,
     },
     email: {
-        type: Sequileze.STRING,
-        allowNull: false
+        type: Sequelize.STRING,
+        allowNull: false,
     },
     password: {
-        type: Sequileze.STRING
+        type: Sequelize.STRING
     }
-})
+});
 
-// Criar a tabela
-// Users.sync()
+//Criar a tabela
+//User.sync();
+//Verificar se há alguma diferença na tabela, realiza a alteração
+//User.sync({ alter: true });
 
-// Verificar se há alguma diferença na tabela, realiza alteração
-// Users.sync({ alter: true })
-
-module.exports = Users;
+module.exports = User;

@@ -1,35 +1,34 @@
-import api from '../config/configApi'
+import api from '../config/configApi';
 
 export const servDeleteUser = async (idUser) => {
-    // console.log("Apagar usuário: " + idUser)
 
-    var status = false
+    var status = false;
 
     const headers = {
-            'headers': {
-                'Authorization': "Bearer " + localStorage.getItem('token')
-            }
+        'headers': {
+            'Authorization': "Bearer " + localStorage.getItem('token')
         }
+    }
 
-        await api.delete("/user/" + idUser, headers)
+    await api.delete("/user/" + idUser, headers)
         .then((response) => {
             status = {
                 type: 'success',
                 mensagem: response.data.mensagem
-            }
+            };
         }).catch((err) => {
-            if(err.response) {
+            if (err.response) {
                 status = {
                     type: 'error',
                     mensagem: err.response.data.mensagem
-                }
+                };
             } else {
                 status = {
                     type: 'error',
                     mensagem: "Erro: Tente mais tarde!"
-                }
+                };
             }
-        })
+        });
 
-    return status
+    return status;
 }
