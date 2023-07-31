@@ -82,3 +82,6 @@ Gerenciar variaveis de ambiente
 
 Permite acesso a API
 # npm install --save cors
+
+Validar campo
+# npm install --save yup

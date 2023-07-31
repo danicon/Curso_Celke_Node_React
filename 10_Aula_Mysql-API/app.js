@@ -1,5 +1,6 @@
 const express = require('express')
 var cors = require('cors')
+const yup = require('yup')
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -23,7 +24,7 @@ app.use((req, res, next) => {
 app.get('/users/:page', eAdmin, async (req, res) => {
     const {page = 1} = req.params
     // console.log(page)
-    const limit = 2
+    const limit = 40
     var lastPage = 1
 
     const countUser = await User.count()
@@ -39,7 +40,7 @@ app.get('/users/:page', eAdmin, async (req, res) => {
 
     await User.findAll({
         attributes: ['id', 'name', 'email', 'password'],
-        order: [['id', 'ASC']],
+        order: [['id', 'DESC']],
         offset: Number((page * limit) - limit), 
         limit: limit
     })
@@ -80,6 +81,30 @@ app.get('/user/:id', eAdmin, async (req, res) => {
 
 app.post('/user', eAdmin, async (req, res) => {
     var dados = req.body;
+
+    const schema = yup.object().shape({
+        password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!"),
+        email: yup.string("Erro: Necessario preencher todos os campos e-mail!").email("Erro: Necessario preencher todos os campos e-mail!").required("Erro: Necessario preencher todos os campos e-mail!"),
+        name: yup.string("Erro: Necessario preencher todos os campos nome!").required("Erro: Necessario preencher todos os campos nome!")
+    })
+
+    try {
+        await schema.validate(dados)
+    } catch(err) {
+        console.log(err)
+        return res.status(400).json({
+            erro: true,
+            mensagem: err.errors
+        })
+    }
+
+    // if(!(await schema.isValid(dados))) {
+    //     return res.status(400).json({
+    //         erro: true,
+    //         mensagem: "Erro: Necessario preencher todos os campos!"
+    //     })
+    // }
+
     dados.password = await bcrypt.hash(dados.password, 8)
     
     await User.create(dados)
@@ -99,6 +124,22 @@ app.post('/user', eAdmin, async (req, res) => {
 
 app.put('/user', eAdmin, async (req, res) => {
     const {id} = req.body;
+
+    const schema = yup.object().shape({
+        password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!"),
+        email: yup.string("Erro: Necessario preencher todos os campos e-mail!").email("Erro: Necessario preencher todos os campos e-mail!").required("Erro: Necessario preencher todos os campos e-mail!"),
+        name: yup.string("Erro: Necessario preencher todos os campos nome!").required("Erro: Necessario preencher todos os campos nome!")
+    })
+
+    try {
+        await schema.validate(req.body)
+    } catch(err) {
+        // console.log(err)
+        return res.status(400).json({
+            erro: true,
+            mensagem: err.errors
+        })
+    }
 
     await User.update(req.body, {where: {id}})
     .then(() => {
