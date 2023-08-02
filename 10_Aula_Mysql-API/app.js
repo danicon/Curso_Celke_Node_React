@@ -1,6 +1,7 @@
 const express = require('express')
 var cors = require('cors')
 const yup = require('yup')
+const { Op } = require("sequelize");
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
@@ -105,6 +106,19 @@ app.post('/user', eAdmin, async (req, res) => {
     //     })
     // }
 
+    const user = await User.findOne({
+        where: {
+            email: req.body.email
+        }
+    })
+
+    if(user) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Este e-mail já está cadastrado!"
+        })
+    }
+
     dados.password = await bcrypt.hash(dados.password, 8)
     
     await User.create(dados)
@@ -126,7 +140,7 @@ app.put('/user', eAdmin, async (req, res) => {
     const {id} = req.body;
 
     const schema = yup.object().shape({
-        password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!"),
+        // password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!"),
         email: yup.string("Erro: Necessario preencher todos os campos e-mail!").email("Erro: Necessario preencher todos os campos e-mail!").required("Erro: Necessario preencher todos os campos e-mail!"),
         name: yup.string("Erro: Necessario preencher todos os campos nome!").required("Erro: Necessario preencher todos os campos nome!")
     })
@@ -138,6 +152,22 @@ app.put('/user', eAdmin, async (req, res) => {
         return res.status(400).json({
             erro: true,
             mensagem: err.errors
+        })
+    }
+
+    const user = await User.findOne({
+        where: {
+            email: req.body.email,
+            id: {
+                [Op.ne]: id
+            }
+        }
+    })
+
+    if(user) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Este e-mail já está cadastrado!"
         })
     }
 
@@ -158,6 +188,21 @@ app.put('/user', eAdmin, async (req, res) => {
 
 app.put('/user-senha', eAdmin, async (req, res) => {
     const {id, password} = req.body;
+
+    const schema = yup.object().shape({
+        password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!")
+
+    })
+
+    try {
+        await schema.validate(req.body)
+    } catch(err) {
+        // console.log(err)
+        return res.status(400).json({
+            erro: true,
+            mensagem: err.errors
+        })
+    }
 
     var senhaCrypt = await bcrypt.hash(password, 8)
 

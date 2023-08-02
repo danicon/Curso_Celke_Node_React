@@ -5,10 +5,11 @@ import * as yup from 'yup'
 import api from '../../config/configApi';
 import { servDeleteUser } from '../../services/servDeleteUser';
 
-export const EditUser = (props) => {
+export const EditUserPassoword = (props) => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [id] = useState(props.match.params.id);
 
     const [status, setStatus] = useState({
@@ -28,7 +29,7 @@ export const EditUser = (props) => {
             }
         }
 
-        await api.put("/user", { id, name, email }, headers)
+        await api.put("/user-senha", { id, password }, headers)
             .then((response) => {
                 setStatus({
                     type: 'redSuccess',
@@ -99,14 +100,12 @@ export const EditUser = (props) => {
 
     async function validate() {
         let schema = yup.object().shape({
-            name: yup.string("Erro: Necessario preencher todos os campos nome!").required("Erro: Necessario preencher todos os campos nome!"),
-            email: yup.string("Erro: Necessario preencher todos os campos e-mail!").email("Erro: Necessario preencher todos os campos e-mail!").required("Erro: Necessario preencher todos os campos e-mail!")
+            password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!")
         })
 
         try {
             await schema.validate({
-                name: name,
-                email: email
+                password: password
             })
             return true
         } catch(err) {
@@ -176,11 +175,12 @@ export const EditUser = (props) => {
                 3 - API editou - success */}
             <hr />
             <form onSubmit={editUser}>
-                <label>Nome*: </label>
-                <input type="text" name="name" placeholder="Nome completo do usuário" value={name} onChange={text => setName(text.target.value)} /><br /><br />
+                <label>Nome: {name}</label><br />
+                <label>E-mail: {email}</label><br /><br />
 
-                <label>E-mail*: </label>
-                <input type="email" name="email" placeholder="Melhor e-mail do usuário" value={email} onChange={text => setEmail(text.target.value)} /><br /><br />
+
+                <label>Senha*: </label>
+                <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={text => setPassword(text.target.value)} /><br /><br />
 
                 * Campo obrigatório<br /><br />
 
