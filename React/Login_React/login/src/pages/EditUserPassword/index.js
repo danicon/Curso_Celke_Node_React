@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import * as yup from 'yup'
 
+import {Menu} from '../../components/Menu'
 import api from '../../config/configApi';
 import { servDeleteUser } from '../../services/servDeleteUser';
 
@@ -100,7 +101,7 @@ export const EditUserPassoword = (props) => {
 
     async function validate() {
         let schema = yup.object().shape({
-            password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!")
+            password: yup.string("Erro: Necessario preencher o campo senha!").required("Erro: Necessario preencher o campo senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!")
         })
 
         try {
@@ -143,8 +144,7 @@ export const EditUserPassoword = (props) => {
 
     return (
         <div>
-            <Link to="/dashboard">Dashboard</Link><br />
-            <Link to="/users">Usuários</Link><br />
+            <Menu/>
 
             <h1>Editar Usuário</h1>
 

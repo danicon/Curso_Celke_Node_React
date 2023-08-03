@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import * as yup from 'yup'
 
+import {Menu} from '../../components/Menu'
 import api from '../../config/configApi';
 import { servDeleteUser } from '../../services/servDeleteUser';
 
@@ -144,8 +145,7 @@ export const EditUser = (props) => {
 
     return (
         <div>
-            <Link to="/dashboard">Dashboard</Link><br />
-            <Link to="/users">Usuários</Link><br />
+            <Menu/>
 
             <h1>Editar Usuário</h1>
 

@@ -74,7 +74,7 @@ app.get('/user/:id', eAdmin, async (req, res) => {
     }).catch(() => {
         return res.status(400).json({
             erro: true,
-            mensagem: "Erro: Usuário encontrado com sucesso!"
+            mensagem: "Erro: Usuário não encontrado!"
         })
     })
 
@@ -190,7 +190,7 @@ app.put('/user-senha', eAdmin, async (req, res) => {
     const {id, password} = req.body;
 
     const schema = yup.object().shape({
-        password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!")
+        password: yup.string("Erro: Necessario preencher o campo senha!").required("Erro: Necessario preencher o campo senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!")
 
     })
 
@@ -296,6 +296,109 @@ app.get("/val-token", eAdmin, async (req, res) => {
     })
 })
 
+app.get('/view-profile', eAdmin, async (req, res) => {
+    const id = req.userId;
+
+    // await User.findAll({ where: { id: id} })
+    await User.findByPk(id)
+    .then((user) => {
+        return res.json({
+            erro: false,
+            user
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Perfil não encontrado!"
+        })
+    })
+
+})
+
+app.put('/edit-profile', eAdmin, async (req, res) => {
+    const id = req.userId;
+
+    const schema = yup.object().shape({
+        email: yup.string("Erro: Necessario preencher todos os campos e-mail!").email("Erro: Necessario preencher todos os campos e-mail!").required("Erro: Necessario preencher todos os campos e-mail!"),
+        name: yup.string("Erro: Necessario preencher todos os campos nome!").required("Erro: Necessario preencher todos os campos nome!")
+    })
+
+    try {
+        await schema.validate(req.body)
+    } catch(err) {
+        // console.log(err)
+        return res.status(400).json({
+            erro: true,
+            mensagem: err.errors
+        })
+    }
+
+    const user = await User.findOne({
+        where: {
+            email: req.body.email,
+            id: {
+                [Op.ne]: id
+            }
+        }
+    })
+
+    if(user) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Este e-mail já está cadastrado!"
+        })
+    }
+
+    await User.update(req.body, {where: {id}})
+    .then(() => {
+        return res.json({
+            erro: false,
+            mensagem: "Perfil editado com sucesso!"
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Perfil não editado com sucesso!"
+        })
+    })
+
+})
+
+app.put('/edit-profile-password', eAdmin, async (req, res) => {
+    const id = req.userId
+    const {password} = req.body;
+
+    const schema = yup.object().shape({
+        password: yup.string("Erro: Necessario preencher o campo senha!").required("Erro: Necessario preencher o campo senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!")
+
+    })
+
+    try {
+        await schema.validate(req.body)
+    } catch(err) {
+        // console.log(err)
+        return res.status(400).json({
+            erro: true,
+            mensagem: err.errors
+        })
+    }
+
+    var senhaCrypt = await bcrypt.hash(password, 8)
+
+    await User.update({password: senhaCrypt}, {where: {id}})
+    .then(() => {
+        return res.json({
+            erro: false,
+            mensagem: "Senha editado com sucesso!"
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Senha não editado com sucesso!"
+        })
+    })
+
+})
 
 app.listen(8080, () => {
     console.log("Servidor iniciado na porta 8080 http://localhost:8080")

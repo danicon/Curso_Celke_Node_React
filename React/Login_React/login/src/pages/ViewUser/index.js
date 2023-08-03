@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
+import {Menu} from '../../components/Menu'
 import { servDeleteUser } from '../../services/servDeleteUser';
 import api from '../../config/configApi';
 
@@ -78,8 +79,7 @@ export const ViewUser = (props) => {
 
     return (
         <div>
-            <Link to="/dashboard">Dashboard</Link><br />
-            <Link to="/users">Usuários</Link><br />
+            <Menu/>
 
             <h1>Detalhes do Usuário</h1>
 

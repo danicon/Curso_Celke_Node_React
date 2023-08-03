@@ -10,6 +10,9 @@ import { AddUser } from '../pages/AddUser';
 import { ViewUser } from '../pages/ViewUser';
 import { EditUser } from '../pages/EditUser';
 import { EditUserPassoword } from '../pages/EditUserPassword';
+import { ViewProfile } from '../pages/ViewProfile';
+import { EditProfile } from '../pages/EditProfile';
+import { EditProfilePassoword } from '../pages/EditProfilePassword';
 
 function CustomRoute({ isPrivate, ...rest }) {
     const { authenticated } = useContext(Context);
@@ -30,6 +33,9 @@ export default function RoutesAdm() {
             <CustomRoute exact isPrivate path="/view-user/:id" component={ViewUser} />
             <CustomRoute exact isPrivate path="/edit-user/:id" component={EditUser} />
             <CustomRoute exact isPrivate path="/edit-user-password/:id" component={EditUserPassoword} />
+            <CustomRoute exact isPrivate path="/view-profile" component={ViewProfile} />
+            <CustomRoute exact isPrivate path="/edit-profile" component={EditProfile} />
+            <CustomRoute exact isPrivate path="/edit-profile-password" component={EditProfilePassoword} />
         </Switch>
     );
 };
