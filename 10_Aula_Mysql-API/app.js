@@ -296,6 +296,63 @@ app.get("/val-token", eAdmin, async (req, res) => {
     })
 })
 
+
+app.post('/add-user-login', async (req, res) => {
+    var dados = req.body;
+
+    const schema = yup.object().shape({
+        password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!"),
+        email: yup.string("Erro: Necessario preencher todos os campos e-mail!").email("Erro: Necessario preencher todos os campos e-mail!").required("Erro: Necessario preencher todos os campos e-mail!"),
+        name: yup.string("Erro: Necessario preencher todos os campos nome!").required("Erro: Necessario preencher todos os campos nome!")
+    })
+
+    try {
+        await schema.validate(dados)
+    } catch(err) {
+        console.log(err)
+        return res.status(400).json({
+            erro: true,
+            mensagem: err.errors
+        })
+    }
+
+    // if(!(await schema.isValid(dados))) {
+    //     return res.status(400).json({
+    //         erro: true,
+    //         mensagem: "Erro: Necessario preencher todos os campos!"
+    //     })
+    // }
+
+    const user = await User.findOne({
+        where: {
+            email: req.body.email
+        }
+    })
+
+    if(user) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Este e-mail já está cadastrado!"
+        })
+    }
+
+    dados.password = await bcrypt.hash(dados.password, 8)
+    
+    await User.create(dados)
+    .then(() => {
+        return res.json({
+            erro: false,
+            mensagem: "Usuário cadastrado com sucesso!"
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Usuário não cadastrado com sucesso!"
+        })
+    })
+
+})
+
 app.get('/view-profile', eAdmin, async (req, res) => {
     const id = req.userId;
 

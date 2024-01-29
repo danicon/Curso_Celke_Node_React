@@ -5,8 +5,11 @@ import { useHistory } from 'react-router-dom';
 import api from '../../config/configApi';
 
 import { Context } from '../../Context/AuthContext';
+import { Link, useLocation } from 'react-router-dom';
 
 export const Login = () => {
+
+    const { state } = useLocation();
 
     const history = useHistory();
 
@@ -15,13 +18,13 @@ export const Login = () => {
     console.log("Situação do usuário na página login: " + authenticated);
 
     const [user, setUser] = useState({
-        email: '',
-        password: ''
+        email: "",
+        password: "" 
     });
 
     const [status, setStatus] = useState({
-        type: '',
-        mensagem: '',
+        type: state ? state.type : "",
+        mensagem: state ? state.mensagem : "",
         loading: false
     });
 
@@ -83,8 +86,12 @@ export const Login = () => {
                 <label>Senha: </label>
                 <input type="password" name="password" placeholder="Digite a senha" autoComplete="on" onChange={valorInput} /><br /><br />
 
-                {status.loading ? <button type="submit" disabled>Acessando...</button> : <button type="submit">Acessar</button>}
+                {status.loading ? <button type="submit" disabled>Acessando...</button> : <button type="submit">Acessar</button>} <br /><br />
+
             </form>
+
+            <Link to="/add-user-login">Cadastrar</Link>
+
         </div>
     );
 };

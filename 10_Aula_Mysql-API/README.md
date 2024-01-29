@@ -29,6 +29,7 @@ Criar tabela
 # 	`id` int not null auto_increment,
 # 	`name` varchar(220) collate utf8mb4_unicode_ci default null,
 # 	`email` varchar(220) collate utf8mb4_unicode_ci default null,
+# 	`password` varchar(220) collate utf8mb4_unicode_ci default null,
 # 	primary key (`id`)
 # )engine=innoDB default charset=utf8mb4 collate utf8mb4_unicode_ci;
 

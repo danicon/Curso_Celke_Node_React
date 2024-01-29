@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { Context } from '../Context/AuthContext';
 
 import { Login } from '../pages/Login';
+import { AddUserLogin } from '../pages/AddUserLogin';
 import { Dashboard } from '../pages/Dashboard';
 import { Users } from '../pages/Users';
 import { AddUser } from '../pages/AddUser';
@@ -27,6 +28,8 @@ export default function RoutesAdm() {
     return (
         <Switch>
             <CustomRoute exact path="/" component={Login} />
+            <CustomRoute exact path="/add-user-login" component={AddUserLogin} />
+
             <CustomRoute exact isPrivate path="/dashboard" component={Dashboard} />
             <CustomRoute exact isPrivate path="/users" component={Users} />
             <CustomRoute exact isPrivate path="/add-user" component={AddUser} />
