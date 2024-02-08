@@ -106,7 +106,7 @@ export const AddUserLogin = () => {
                 <button type="submit">Cadastrar</button><br /><br />
             </form>
 
-            <Link to="/">Login</Link>
+            <Link to="/">Acessar</Link>
 
         </div>
     );

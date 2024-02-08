@@ -86,3 +86,6 @@ Permite acesso a API
 
 Validar campo
 # npm install --save yup
+
+Modulo para enviar email
+# npm install --save nodemailer

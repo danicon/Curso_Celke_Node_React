@@ -13,9 +13,9 @@ export const Login = () => {
 
     const history = useHistory();
 
-    const { authenticated, signIn } = useContext(Context);
+    const { signIn } = useContext(Context);
 
-    console.log("Situação do usuário na página login: " + authenticated);
+    // console.log("Situação do usuário na página login: " + authenticated);
 
     const [user, setUser] = useState({
         email: "",
@@ -90,7 +90,8 @@ export const Login = () => {
 
             </form>
 
-            <Link to="/add-user-login">Cadastrar</Link>
+            <Link to="/add-user-login">Cadastrar</Link>{" - "}
+            <Link to="/recover-password">Esqueceu a Senha</Link>
 
         </div>
     );

@@ -1,6 +1,7 @@
 const express = require('express')
 var cors = require('cors')
 const yup = require('yup')
+const nodemailer = require('nodemailer')
 const { Op } = require("sequelize");
 
 const bcrypt = require('bcryptjs')
@@ -452,6 +453,66 @@ app.put('/edit-profile-password', eAdmin, async (req, res) => {
         return res.status(400).json({
             erro: true,
             mensagem: "Erro: Senha não editado com sucesso!"
+        })
+    })
+
+})
+
+app.post('/recover-password', async (req, res) => {
+
+    var dados = req.body;
+
+    const user = await User.findOne({
+        attributes: ['id', 'name', 'email'],
+        where: {
+            email: dados.email
+        }
+    })
+    if(user === null) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Usuário não encontrado!"
+        })
+    }
+
+    dados.recover_password = (await bcrypt.hash(user.id + user.name + user.email, 8)).replace(/\./g, "").replace(/\//g, "")
+
+    await User.update(dados, {where: {id: user.id}})
+    .then(() => {
+       
+        var transport = nodemailer.createTransport({
+            host: process.env.EMAIL_HOST,
+            port: process.env.EMAIL_PORT,
+            auth: {
+              user: process.env.EMAIL_USER,
+              pass: process.env.EMAIL_PASS
+            }
+        });
+    
+        var message = {
+            from: process.env.EMAIL_FROM_PASS,
+            to: dados.email,
+            subject: "Instrução para recuperar a senha",
+            text: "Prezado(a) Daniel.\n\nVocê solicitou alteração de senha.\n\nPara continuar o processo de recuperação de sua senha, clique no link abaixo ou cole o endereço no seu navegador: " + dados.url + dados.recover_password + " \n\nSe você não solicitou essa alteração, nenhuma ação é nescessaria. Sua senha permanecerá a mesma até que você ative este código.\n\n",
+            html: "Prezado(a) Daniel.<br><br>Você solicitou alteração de senha.<br><br>Para continuar o processo de recuperação de sua senha, clique no link abaixo ou cole o endereço no seu navegador: <a href='" + dados.url + dados.recover_password + "'>" + dados.url + dados.recover_password + "</a> <br><br>Se você não solicitou essa alteração, nenhuma ação é nescessaria. Sua senha permanecerá a mesma até que você ative este código.<br><br>",
+        };
+    
+        transport.sendMail(message, function(err){
+            if(err) return res.status(400).json({
+                erro: true,
+                mensagem: "Erro: E-mail com as instruções para recuperar a senha não enviado, tente novamente!"
+            })
+    
+            return res.json({
+                erro: false,
+                mensagem: "Enviado e-mail com instruções para recuperar a senha. Acesse a sua caixa de e-mail para recuperar a senha!"
+            })
+        })
+
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: E-mail com as instruções para recuperar a senha não enviado, tente novamente!"
         })
     })
 

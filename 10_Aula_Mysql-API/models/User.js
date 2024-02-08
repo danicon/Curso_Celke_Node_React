@@ -18,12 +18,15 @@ const User = db.define('users',{
     },
     password: {
         type: Sequelize.STRING
+    },
+    recover_password: {
+        type: Sequelize.STRING
     }
 });
 
 //Criar a tabela
 //User.sync();
 //Verificar se há alguma diferença na tabela, realiza a alteração
-//User.sync({ alter: true });
+// User.sync({ alter: true });
 
-module.exports = User;
+module.exports = User; 
