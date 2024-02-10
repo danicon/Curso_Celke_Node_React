@@ -540,9 +540,53 @@ app.get('/val-key-recover-pass/:key', async (req, res) => {
         mensagem: "Chave é valida!"
     })
 
+})
+
+app.put('/update-password/:key', async (req, res) => {
+
+    const {key} = req.params
+    const {password} = req.body;
+
+    const schema = yup.object().shape({
+        password: yup.string("Erro: Necessario preencher o campo senha!").required("Erro: Necessario preencher o campo senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!")
+
+    })
+
+    try {
+        await schema.validate(req.body)
+    } catch(err) {
+        // console.log(err)
+        return res.status(400).json({
+            erro: true,
+            mensagem: err.errors
+        })
+    }
+
+    var senhaCrypt = await bcrypt.hash(password, 8)
+
+    await User.update({password: senhaCrypt, recover_password: null}, {where: {recover_password: key}})
+    .then(() => {
+        return res.json({
+            erro: false,
+            mensagem: "Senha editado com sucesso!"
+        })
+    }).catch(() => {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Senha não editado com sucesso!"
+        })
+    })
+
+    // return res.json({
+    //     erro: false,
+    //     mensagem: "Senha editada com sucesso!",
+    //     key
+    // })
+
     // return res.status(400).json({
     //     erro: true,
-    //     mensagem: "Erro: Chave invalida!"
+    //     mensagem: "Errop: Senha não editada com sucesso!",
+    //     key
     // })
 
 })
