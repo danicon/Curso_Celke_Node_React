@@ -6,6 +6,8 @@ import { Context } from '../Context/AuthContext';
 import { Login } from '../pages/Login';
 import { AddUserLogin } from '../pages/AddUserLogin';
 import { RecoverPassword } from '../pages/RecoverPassword';
+import { UpdatePassword } from '../pages/UpdatePassword';
+
 import { Dashboard } from '../pages/Dashboard';
 import { Users } from '../pages/Users';
 import { AddUser } from '../pages/AddUser';
@@ -31,6 +33,7 @@ export default function RoutesAdm() {
             <CustomRoute exact path="/" component={Login} />
             <CustomRoute exact path="/add-user-login" component={AddUserLogin} />
             <CustomRoute exact path="/recover-password" component={RecoverPassword} />
+            <CustomRoute exact path="/update-password/:key" component={UpdatePassword} />
 
             <CustomRoute exact isPrivate path="/dashboard" component={Dashboard} />
             <CustomRoute exact isPrivate path="/users" component={Users} />

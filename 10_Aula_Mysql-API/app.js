@@ -518,6 +518,36 @@ app.post('/recover-password', async (req, res) => {
 
 })
 
+app.get('/val-key-recover-pass/:key', async (req, res) => {
+
+    const {key} = req.params
+
+    const user = await User.findOne({
+        attributes: ['id'],
+        where: {
+            recover_password: key
+        }
+    })
+    if(user === null) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro: Link invalido!"
+        })
+    }
+
+    return res.json({
+        erro: false,
+        mensagem: "Chave é valida!"
+    })
+
+    // return res.status(400).json({
+    //     erro: true,
+    //     mensagem: "Erro: Chave invalida!"
+    // })
+
+})
+
+
 app.listen(8080, () => {
     console.log("Servidor iniciado na porta 8080 http://localhost:8080")
 })
