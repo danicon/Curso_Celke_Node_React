@@ -10,6 +10,7 @@ require('dotenv').config();
 
 const {eAdmin} = require("./middlewares/auth")
 const User = require('./models/User')
+const upload = require('./middlewares/uploadImgProfile')
 
 const app = express();
 
@@ -577,20 +578,14 @@ app.put('/update-password/:key', async (req, res) => {
         })
     })
 
-    // return res.json({
-    //     erro: false,
-    //     mensagem: "Senha editada com sucesso!",
-    //     key
-    // })
-
-    // return res.status(400).json({
-    //     erro: true,
-    //     mensagem: "Errop: Senha não editada com sucesso!",
-    //     key
-    // })
-
 })
 
+app.put('/edit-profile-image', eAdmin, upload.single('image'), async (req, res) => {
+    return res.json({
+        erro: false,
+        mensagem: "Imagen editada com sucesso!"
+    })
+})
 
 app.listen(8080, () => {
     console.log("Servidor iniciado na porta 8080 http://localhost:8080")
