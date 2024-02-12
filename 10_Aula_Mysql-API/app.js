@@ -7,6 +7,7 @@ const { Op } = require("sequelize");
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
+const fs = require('fs')
 
 const {eAdmin} = require("./middlewares/auth")
 const User = require('./models/User')
@@ -582,6 +583,25 @@ app.put('/update-password/:key', async (req, res) => {
 
 app.put('/edit-profile-image', eAdmin, upload.single('image'), async (req, res) => {
     if(req.file) {
+
+        await User.findByPk(req.userId)
+        .then(user => {
+            const imgOld = "./public/upload/users/" + user.dataValues.image
+            // console.log(imgOld)
+
+            fs.access(imgOld, (err) => {
+                if(!err) {
+                    fs.unlink(imgOld, () => {})
+                    console.log('excluido')
+                }
+            })
+
+        }).catch(() => {
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Erro: Perfil não encontrado!"
+            })
+        })
 
         await User.update({image: req.file.filename}, {where: {id: req.userId}})
         .then(() => {
