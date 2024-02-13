@@ -8,6 +8,7 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 require('dotenv').config();
 const fs = require('fs')
+const path = require('path')
 
 const {eAdmin} = require("./middlewares/auth")
 const User = require('./models/User')
@@ -16,6 +17,8 @@ const upload = require('./middlewares/uploadImgProfile')
 const app = express();
 
 app.use(express.json());
+
+app.use('/files', express.static(path.resolve(__dirname, "public", "upload")))
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")
@@ -70,9 +73,13 @@ app.get('/user/:id', eAdmin, async (req, res) => {
     // await User.findAll({ where: { id: id} })
     await User.findByPk(id)
     .then((user) => {
+
+        var endImagem = "http://localhost:8080/files/users/"
+
         return res.json({
             erro: false,
-            user
+            user,
+            endImagem
         })
     }).catch(() => {
         return res.status(400).json({

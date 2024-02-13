@@ -1,4 +1,5 @@
 const multer = require("multer")
+const path = require('path')
 
 module.exports = (multer({
     storage: multer.diskStorage({
@@ -6,7 +7,7 @@ module.exports = (multer({
             cb(null, "./public/upload/users")
         },
         filename: (req, file, cb) => {
-            cb(null, Date.now().toString() + '_' + file.originalname)
+            cb(null, Date.now().toString() + req.userId + path.extname(file.originalname))
         }
     }),
     fileFilter: (req, file, cb) => {
