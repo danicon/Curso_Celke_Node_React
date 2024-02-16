@@ -9,6 +9,7 @@ export const ViewProfile = () => {
     const { state } = useLocation();
 
     const [data, setData] = useState('');
+    const [endImg, setEndImg] = useState('');
 
     const [status, setStatus] = useState({
         type: state ? state.type : "",
@@ -28,6 +29,8 @@ export const ViewProfile = () => {
             await api.get("/view-profile", headers)
                 .then((response) => {
                     if (response.data.user) {
+                        // console.log(response.data)
+                        setEndImg(response.data.endImage)
                         setData(response.data.user);
                     } else {
                         setStatus({
@@ -76,6 +79,8 @@ export const ViewProfile = () => {
             <hr />
             
             <span>{data.id}</span><br />
+            {/* <span>{data.image ? <img src={endImg + data.image} alt="Imagem do Usuário" width="150" height="150" /> : <img src="https://celke.com.br/app/lms/assets/imagens/curso_clms/45/curso-de-node-js-react-native.jpg" alt="Imagem do Usuário" width="150" height="150" />}</span><br /> */}
+            <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span><br />
             <span>{data.name}</span><br />
             <span>{data.email}</span><br />
         </div>

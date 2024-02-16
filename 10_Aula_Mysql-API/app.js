@@ -74,12 +74,16 @@ app.get('/user/:id', eAdmin, async (req, res) => {
     await User.findByPk(id)
     .then((user) => {
 
-        var endImagem = "http://localhost:8080/files/users/"
+        if(user.image) {
+            var endImage = process.env.URL_IMG + "/files/users/" + user.image
+        } else {
+            var endImage = process.env.URL_IMG + "/files/users/icone_usuario.png"
+        }
 
         return res.json({
             erro: false,
             user,
-            endImagem
+            endImage
         })
     }).catch(() => {
         return res.status(400).json({
@@ -369,10 +373,19 @@ app.get('/view-profile', eAdmin, async (req, res) => {
     // await User.findAll({ where: { id: id} })
     await User.findByPk(id)
     .then((user) => {
+
+        if(user.image) {
+            var endImage = process.env.URL_IMG + "/files/users/" + user.image
+        } else {
+            var endImage = process.env.URL_IMG + "/files/users/icone_usuario.png"
+        }
+
         return res.json({
             erro: false,
-            user
+            user,
+            endImage
         })
+
     }).catch(() => {
         return res.status(400).json({
             erro: true,

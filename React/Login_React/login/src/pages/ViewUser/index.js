@@ -9,6 +9,7 @@ export const ViewUser = (props) => {
 
     const [data, setData] = useState('');
     const [id] = useState(props.match.params.id);
+    const [endImg, setEndImg] = useState('');
 
     const [status, setStatus] = useState({
         type: '',
@@ -28,6 +29,7 @@ export const ViewUser = (props) => {
             await api.get("/user/" + id, headers)
                 .then((response) => {
                     if (response.data.user) {
+                        setEndImg(response.data.endImage)
                         setData(response.data.user);
                     } else {
                         setStatus({
@@ -111,6 +113,7 @@ export const ViewUser = (props) => {
             <hr />
             
             <span>{data.id}</span><br />
+            <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span><br />
             <span>{data.name}</span><br />
             <span>{data.email}</span><br />
         </div>
