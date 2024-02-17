@@ -27,3 +27,6 @@ Utilizado para mudar de página e renderizar a nova página sem recarregar toda 
 
 Validar campo do formulario
 # npm install --save yup
+
+Atalho para identar codigo
+# Alt + Shift + F

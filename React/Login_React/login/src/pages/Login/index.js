@@ -19,7 +19,7 @@ export const Login = () => {
 
     const [user, setUser] = useState({
         email: "",
-        password: "" 
+        password: ""
     });
 
     const [status, setStatus] = useState({
@@ -74,27 +74,43 @@ export const Login = () => {
     }
 
     return (
-        <div>
-            <h1>Login</h1>
+        <div className="d-flex">
+            <div className="container-login">
+                <div className="wrapper-login">
 
-            {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
-            {status.type === 'success' ? <p style={{color: "green"}}>{status.mensagem}</p> : ""}
-            {status.loading ? <p>Validando...</p> : ""}
+                    <div className="title">
+                        <span>Área Restrita</span>
+                    </div>               
 
-            <form onSubmit={loginSubmit}>
-                <label>Usuário: </label>
-                <input type="text" name="email" placeholder="Digite o e-mail" onChange={valorInput} /><br /><br />
+                    <form onSubmit={loginSubmit} className="form-login">
+                        {status.type === 'error' ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        {status.type === 'success' ? <p className="alert-success">{status.mensagem}</p> : ""}
 
-                <label>Senha: </label>
-                <input type="password" name="password" placeholder="Digite a senha" autoComplete="on" onChange={valorInput} /><br /><br />
+                        {status.loading ? <p className="alert-success">Validando...</p> : ""}
 
-                {status.loading ? <button type="submit" disabled>Acessando...</button> : <button type="submit">Acessar</button>} <br /><br />
+                        <div className="row">
+                            <i className="fa-solid fa-user"></i>
+                            <input type="text" name="email" placeholder="Digite o e-mail" onChange={valorInput} />
+                        </div>
 
-            </form>
+                        <div className="row">
+                            <i className="fa-solid fa-lock"></i>
+                            <input type="password" name="password" placeholder="Digite a senha" autoComplete="on" onChange={valorInput} />
+                        </div>
 
-            <Link to="/add-user-login">Cadastrar</Link>{" - "}
-            <Link to="/recover-password">Esqueceu a Senha</Link>
+                        <div className="row button">
+                            {status.loading ? <button type="submit" className="button-login" disabled>Acessando...</button> : <button type="submit" className="button-login">Acessar</button>}
+                        </div>
 
+                        <div className="signup-link">
+                            <Link to="/add-user-login" className="link-pg-login">Cadastrar</Link>{" - "}
+                            <Link to="/recover-password" className="link-pg-login">Esqueceu a Senha</Link>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
         </div>
     );
 };

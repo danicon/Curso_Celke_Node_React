@@ -8,8 +8,10 @@ Criar o arq package
 
 ### npm install express
 
+Alterar as credenciais do BD e as credenciais do servidor de email no arq ".env"
+
 Rodar o projeto
-### node app.js
+### node app.js ou nodemon app.js
 
 Acessar
 ### http://localhost:8080
