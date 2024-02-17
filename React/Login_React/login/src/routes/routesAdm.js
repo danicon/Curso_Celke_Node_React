@@ -17,6 +17,8 @@ import { EditUserPassoword } from '../pages/EditUserPassword';
 import { ViewProfile } from '../pages/ViewProfile';
 import { EditProfile } from '../pages/EditProfile';
 import { EditProfilePassoword } from '../pages/EditProfilePassword';
+import { EditProfileImage } from '../pages/EditProfileImage';
+import { EditUserImage } from '../pages/EditUserImage';
 
 function CustomRoute({ isPrivate, ...rest }) {
     const { authenticated } = useContext(Context);
@@ -44,6 +46,8 @@ export default function RoutesAdm() {
             <CustomRoute exact isPrivate path="/view-profile" component={ViewProfile} />
             <CustomRoute exact isPrivate path="/edit-profile" component={EditProfile} />
             <CustomRoute exact isPrivate path="/edit-profile-password" component={EditProfilePassoword} />
+            <CustomRoute exact isPrivate path="/edit-profile-image" component={EditProfileImage} />
+            <CustomRoute exact isPrivate path="/edit-user-image/:id" component={EditUserImage} />
         </Switch>
     );
 };

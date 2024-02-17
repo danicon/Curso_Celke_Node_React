@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, Redirect, useLocation } from 'react-router-dom';
 
 import {Menu} from '../../components/Menu'
 import { servDeleteUser } from '../../services/servDeleteUser';
@@ -7,13 +7,15 @@ import api from '../../config/configApi';
 
 export const ViewUser = (props) => {
 
+    const { state } = useLocation();
+
     const [data, setData] = useState('');
     const [id] = useState(props.match.params.id);
     const [endImg, setEndImg] = useState('');
 
     const [status, setStatus] = useState({
-        type: '',
-        mensagem: ''
+        type: state ? state.type : "",
+        mensagem: state ? state.mensagem : ""
     });
 
     useEffect(() => {
@@ -88,6 +90,7 @@ export const ViewUser = (props) => {
             <Link to="/users"><button type="button">Listar</button></Link>{" "}
             <Link to={"/edit-user/" + data.id}><button type="button">Editar</button></Link>{" "}
             <Link to={"/edit-user-password/" + data.id}><button type="button">Editar Senha</button></Link>{" "}
+            <Link to={"/edit-user-image/" + data.id}><button type="button">Editar Imagem</button></Link>{" "}
             <Link to={"#"}><button type="button" onClick={() => deleteUser(data.id)}>Apagar</button></Link>
             
 
@@ -108,7 +111,8 @@ export const ViewUser = (props) => {
                         mensagem: status.mensagem
                     }
                 }} /> : ""}
-            {status.type === 'success' ? <p>{status.mensagem}</p> : ""}
+            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+            {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
 
             <hr />
             

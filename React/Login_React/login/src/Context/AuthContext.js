@@ -40,6 +40,8 @@ function AuthProvider({ children }) {
             }).catch(() => {
                 setAuthenticated(false);
                 localStorage.removeItem('token');
+                localStorage.removeItem('name');
+                localStorage.removeItem('image');
                 api.defaults.headers.Authorization = undefined;
                 return false;
             })
@@ -52,6 +54,8 @@ function AuthProvider({ children }) {
     function handleLogout() {
         setAuthenticated(false);
         localStorage.removeItem('token');
+        localStorage.removeItem('name');
+        localStorage.removeItem('image');
         api.defaults.headers.Authorization = undefined;
     }
 

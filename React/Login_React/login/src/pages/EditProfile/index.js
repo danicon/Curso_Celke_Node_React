@@ -29,6 +29,7 @@ export const EditProfile = () => {
 
         await api.put("/edit-profile", { name, email }, headers)
             .then((response) => {
+                localStorage.setItem('name', name);
                 setStatus({
                     type: 'redSuccess',
                     mensagem: response.data.mensagem

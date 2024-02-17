@@ -43,13 +43,15 @@ export const Login = () => {
 
         await api.post("/login", user, { headers })
             .then((response) => {
-                //console.log(response);
+                console.log(response);
                 setStatus({
                     /*type: 'success',
                     mensagem: response.data.mensagem,*/
                     loading: false
                 });
                 localStorage.setItem('token', response.data.token);
+                localStorage.setItem('name', response.data.user.name);
+                localStorage.setItem('image', response.data.user.image);
                 signIn(true);
                 return history.push('/dashboard');
             }).catch((err) => {
