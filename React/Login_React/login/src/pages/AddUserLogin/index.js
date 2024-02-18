@@ -22,7 +22,7 @@ export const AddUserLogin = () => {
     const addUser = async e => {
         e.preventDefault();
 
-        if(!(await validate())) return
+        if (!(await validate())) return
 
         const headers = {
             'headers': {
@@ -31,24 +31,24 @@ export const AddUserLogin = () => {
         };
 
         await api.post('/add-user-login', user, headers)
-        .then((response) => {
-            setStatus({
-                type: 'redSuccess',
-                mensagem: response.data.mensagem
+            .then((response) => {
+                setStatus({
+                    type: 'redSuccess',
+                    mensagem: response.data.mensagem
+                });
+            }).catch((err) => {
+                if (err.response) {
+                    setStatus({
+                        type: 'error',
+                        mensagem: err.response.data.mensagem
+                    });
+                } else {
+                    setStatus({
+                        type: 'error',
+                        mensagem: "Erro: Tente novamente!"
+                    });
+                }
             });
-        }).catch((err) => {
-            if (err.response) {
-                setStatus({
-                    type: 'error',
-                    mensagem: err.response.data.mensagem
-                });
-            } else {
-                setStatus({
-                    type: 'error',
-                    mensagem: "Erro: Tente novamente!"
-                });
-            }
-        });
     }
 
     async function validate() {
@@ -65,7 +65,7 @@ export const AddUserLogin = () => {
                 password: user.password
             })
             return true
-        } catch(err) {
+        } catch (err) {
             // console.log(err)
             setStatus({
                 type: 'error',
@@ -73,41 +73,57 @@ export const AddUserLogin = () => {
             })
             return false
         }
-        
+
     }
 
     return (
-        <div>
-            <h1>Cadastrar Usuário</h1>
+        <div className="d-flex">
+            <div className="container-login">
+                <div className="wrapper-login">
 
-            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
-            {status.type === 'redSuccess' ?
-                <Redirect to={{
-                    pathname: '/',
-                    state: {
-                        type: "success",
-                        mensagem: status.mensagem
-                    }
-                }} />
-                : ""}
+                    <div className="title">
+                        <span>Cadastrar Usuário</span>
+                    </div>
 
-            <form onSubmit={addUser}>
-                <label>Nome*: </label>
-                <input type="text" name="name" placeholder="Nome completo do usuário" onChange={valueInput} /><br /><br />
+                    <form onSubmit={addUser} className="form-login">
 
-                <label>E-mail*: </label>
-                <input type="email" name="email" placeholder="Melhor e-mail do usuário" onChange={valueInput} /><br /><br />
+                        {status.type === 'error' ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        {status.type === 'redSuccess' ?
+                            <Redirect to={{
+                                pathname: '/',
+                                state: {
+                                    type: "success",
+                                    mensagem: status.mensagem
+                                }
+                            }} />
+                            : ""}
 
-                <label>Senha*: </label>
-                <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={valueInput} /><br /><br />
+                        <div className="row">
+                            <i className="fa-solid fa-user"></i>
+                            <input type="text" name="name" placeholder="Nome completo do usuário" onChange={valueInput} />
+                        </div>
 
-                * Campo obrigatório<br /><br />
+                        <div className="row">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="email" name="email" placeholder="Melhor e-mail do usuário" onChange={valueInput} />
+                        </div>
 
-                <button type="submit">Cadastrar</button><br /><br />
-            </form>
+                        <div className="row">
+                            <i className="fa-solid fa-lock"></i>
+                            <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={valueInput} />
+                        </div>
 
-            <Link to="/">Acessar</Link>
+                        <div className="row button">
+                            <button type="submit" className="button-login">Cadastrar</button>
+                        </div>
 
+                        <div className="signup-link">
+                            <Link to="/" className="link-pg-login">Acessar</Link>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
     );
 };

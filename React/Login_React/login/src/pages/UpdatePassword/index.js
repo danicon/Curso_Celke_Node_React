@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Redirect, Link} from "react-router-dom"
+import { Redirect, Link } from "react-router-dom"
 import * as yup from 'yup'
 
 import api from "../../config/configApi"
@@ -16,7 +16,7 @@ export const UpdatePassword = (props) => {
 
     useEffect(() => {
 
-        const valKey = async() => {
+        const valKey = async () => {
             const headers = {
                 'headers': {
                     'Content-Type': 'application/json'
@@ -24,26 +24,26 @@ export const UpdatePassword = (props) => {
             }
 
             await api.get("/val-key-recover-pass/" + key, headers)
-            .then((response) => {
-               
-                // setStatus({
-                //     type: 'success',
-                //     mensagem: response.data.mensagem
-                // });
+                .then((response) => {
 
-            }).catch((err) => {
-                if (err.response) {
-                    setStatus({
-                        type: 'redDenger',
-                        mensagem: err.response.data.mensagem
-                    });
-                } else {
-                    setStatus({
-                        type: 'redDenger',
-                        mensagem: "Erro: Tente mais tarde!"
-                    });
-                }
-            })
+                    // setStatus({
+                    //     type: 'success',
+                    //     mensagem: response.data.mensagem
+                    // });
+
+                }).catch((err) => {
+                    if (err.response) {
+                        setStatus({
+                            type: 'redDenger',
+                            mensagem: err.response.data.mensagem
+                        });
+                    } else {
+                        setStatus({
+                            type: 'redDenger',
+                            mensagem: "Erro: Tente mais tarde!"
+                        });
+                    }
+                })
         }
 
         valKey()
@@ -52,7 +52,7 @@ export const UpdatePassword = (props) => {
     const updatePassword = async e => {
         e.preventDefault();
 
-        if(!(await validate())) return
+        if (!(await validate())) return
 
         const headers = {
             'headers': {
@@ -91,7 +91,7 @@ export const UpdatePassword = (props) => {
                 password: password
             })
             return true
-        } catch(err) {
+        } catch (err) {
             // console.log(err)
             setStatus({
                 type: 'error',
@@ -99,42 +99,54 @@ export const UpdatePassword = (props) => {
             })
             return false
         }
-        
+
     }
 
     return (
-        <div>
-            <h1>Editar a senha</h1>    
+        <div className="d-flex">
+            <div className="container-login">
+                <div className="wrapper-login">
 
-            {status.type === 'redDenger' ? <Redirect to={{
-                pathname: '/',
-                state: {
-                    type: "error",
-                    mensagem: status.mensagem
-                }
-            }} /> : ""}
-            {status.type === 'redSuccess' ? <Redirect to={{
-                pathname: '/',
-                state: {
-                    type: "success",
-                    mensagem: status.mensagem
-                }
-            }} /> : ""}
-            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
-            {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
+                    <div className="title">
+                        <span>Editar a senha</span>
+                    </div>
 
-            <form onSubmit={updatePassword}>
-            
-                <label>Senha*: </label>
-                <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={text => setPassword(text.target.value)} /><br /><br />
+                    <form onSubmit={updatePassword} className="form-login">
 
-                * Campo obrigatório<br /><br />
+                        {status.type === 'redDenger' ? <Redirect to={{
+                            pathname: '/',
+                            state: {
+                                type: "error",
+                                mensagem: status.mensagem
+                            }
+                        }} /> : ""}
+                        {status.type === 'redSuccess' ? <Redirect to={{
+                            pathname: '/',
+                            state: {
+                                type: "success",
+                                mensagem: status.mensagem
+                            }
+                        }} /> : ""}
+                        {status.type === 'error' ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        {status.type === 'success' ? <p className="alert-success">{status.mensagem}</p> : ""}
 
-                <button type="submit">Salvar</button><br /><br />
-            </form>
+                        <div className="row">
+                            <i className="fa-solid fa-lock"></i>
+                            <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={text => setPassword(text.target.value)} />
+                        </div>
 
-            Lembrou a Senha <Link to="/">Clique aqui!</Link>
+                        <div className="row button">
+                            <button type="submit" className="button-login">Salvar</button>
+                        </div>
 
+                        <div className="signup-link">
+                            Lembrou a Senha <Link to="/" className="link-pg-login">Clique aqui!</Link>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
         </div>
     );
 }
