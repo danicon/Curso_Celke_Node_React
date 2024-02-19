@@ -291,3 +291,20 @@ body {
 .dropdow-menu .item:hover {
   background-color: var(--second-bg-color);
 }
+
+/* Apresenta a msg inteira */
+.dropdow-menu li:hover .text {
+  white-space: pre-wrap;
+}
+
+.dropdow-menu .item span {
+  margin-right: 15px;
+}
+
+.dropdow-menu.setting {
+  width: 150px;
+}
+
+.dropdown-menu-action {
+  display: block;
+}
