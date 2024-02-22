@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import * as yup from 'yup'
 
-import {Menu} from '../../components/Menu'
+import { Navbar } from '../../components/Navbar'
+import { Sidebar } from '../../components/Sidebar'
 import api from '../../config/configApi';
 
 export const AddUser = () => {
@@ -23,7 +24,7 @@ export const AddUser = () => {
     const addUser = async e => {
         e.preventDefault();
 
-        if(!(await validate())) return
+        if (!(await validate())) return
 
         const headers = {
             'headers': {
@@ -75,7 +76,7 @@ export const AddUser = () => {
                 password: user.password
             })
             return true
-        } catch(err) {
+        } catch (err) {
             // console.log(err)
             setStatus({
                 type: 'error',
@@ -83,45 +84,49 @@ export const AddUser = () => {
             })
             return false
         }
-        
+
     }
-    
+
 
     return (
         <div>
-           
-            <Menu/>
-            <h1>Cadastrar Usuário</h1>
-            <Link to="/users"><button type="button">Listar</button></Link><br />
+            <Navbar />
+            <div className="content">
+                <Sidebar active="users" />
+
+                <h1>Cadastrar Usuário</h1>
+                <Link to="/users"><button type="button">Listar</button></Link><br />
 
 
-            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
-            {status.type === 'success' ?
-                <Redirect to={{
-                    pathname: '/users',
-                    state: {
-                        type: "success",
-                        mensagem: status.mensagem
-                    }
-                }} />
-                : ""}
+                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                {status.type === 'success' ?
+                    <Redirect to={{
+                        pathname: '/users',
+                        state: {
+                            type: "success",
+                            mensagem: status.mensagem
+                        }
+                    }} />
+                    : ""}
 
-            <hr />
+                <hr />
 
-            <form onSubmit={addUser}>
-                <label>Nome*: </label>
-                <input type="text" name="name" placeholder="Nome completo do usuário" onChange={valueInput} /><br /><br />
+                <form onSubmit={addUser}>
+                    <label>Nome*: </label>
+                    <input type="text" name="name" placeholder="Nome completo do usuário" onChange={valueInput} /><br /><br />
 
-                <label>E-mail*: </label>
-                <input type="email" name="email" placeholder="Melhor e-mail do usuário" onChange={valueInput} /><br /><br />
+                    <label>E-mail*: </label>
+                    <input type="email" name="email" placeholder="Melhor e-mail do usuário" onChange={valueInput} /><br /><br />
 
-                <label>Senha*: </label>
-                <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={valueInput} /><br /><br />
+                    <label>Senha*: </label>
+                    <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={valueInput} /><br /><br />
 
-                * Campo obrigatório<br /><br />
+                    * Campo obrigatório<br /><br />
 
-                <button type="submit">Cadastrar</button>
-            </form>
+                    <button type="submit">Cadastrar</button>
+                </form>
+
+            </div>
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {Redirect} from 'react-router-dom';
-import { Menu } from '../../components/Menu';
+import { Redirect } from 'react-router-dom';
+import { Navbar } from '../../components/Navbar'
+import { Sidebar } from '../../components/Sidebar'
 
 import api from '../../config/configApi';
 
@@ -28,26 +29,26 @@ export const EditProfileImage = () => {
         }
 
         await api.put("/edit-profile-image", formData, headers)
-        .then((response) => {
-            // console.log(response.data)
-            localStorage.setItem('image', response.data.image);
-            setStatus({
-                type: 'redSuccess',
-                mensagem: response.data.mensagem
+            .then((response) => {
+                // console.log(response.data)
+                localStorage.setItem('image', response.data.image);
+                setStatus({
+                    type: 'redSuccess',
+                    mensagem: response.data.mensagem
+                });
+            }).catch((err) => {
+                if (err.response) {
+                    setStatus({
+                        type: 'error',
+                        mensagem: err.response.data.mensagem
+                    });
+                } else {
+                    setStatus({
+                        type: 'error',
+                        mensagem: 'Erro: Tente mais tarde!'
+                    });
+                }
             });
-        }).catch((err) => {
-            if (err.response) {
-                setStatus({
-                    type: 'error',
-                    mensagem: err.response.data.mensagem
-                });
-            } else {
-                setStatus({
-                    type: 'error',
-                    mensagem: 'Erro: Tente mais tarde!'
-                });
-            }
-        });
     }
 
     useEffect(() => {
@@ -90,32 +91,37 @@ export const EditProfileImage = () => {
 
     return (
         <div>
-            <Menu />
-            <h1>Editar Foto do Perfil</h1>
+            <Navbar />
+            <div className="content">
+                <Sidebar active="profile" />
 
-            {status.type === 'redSuccess' ? <Redirect to={{
-                pathname: '/view-profile',
-                state: {
-                    type: "success",
-                    mensagem: status.mensagem  
-                }
-            }} /> : ""}
-            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                <h1>Editar Foto do Perfil</h1>
 
-            <form onSubmit={editUser}>
-                <label>Imagem*: </label>
-                <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
+                {status.type === 'redSuccess' ? <Redirect to={{
+                    pathname: '/view-profile',
+                    state: {
+                        type: "success",
+                        mensagem: status.mensagem
+                    }
+                }} /> : ""}
+                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
 
-                {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />}
-               
-                {/* {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />} */}
-                <br /><br />
+                <form onSubmit={editUser}>
+                    <label>Imagem*: </label>
+                    <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
 
-                * Campo obrigatório<br /><br />
+                    {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />}
 
-                <button type="submit">Salvar</button>
+                    {/* {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />} */}
+                    <br /><br />
 
-            </form>
+                    * Campo obrigatório<br /><br />
+
+                    <button type="submit">Salvar</button>
+
+                </form>
+
+            </div>
         </div>
     )
 }

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 
-import {Menu} from '../../components/Menu'
+import { Navbar } from '../../components/Navbar'
+import { Sidebar } from '../../components/Sidebar'
 import api from '../../config/configApi';
 
 export const ViewProfile = () => {
@@ -52,7 +53,7 @@ export const ViewProfile = () => {
                         });
                     }
                 })
-                // console.log("Conectar Backend")
+            // console.log("Conectar Backend")
         }
 
         getUser();
@@ -60,30 +61,34 @@ export const ViewProfile = () => {
 
     return (
         <div>
-            <Menu/>
+            <Navbar />
+            <div className="content">
+                <Sidebar active="profile" />
 
-            <h1>Perfil</h1>
-            <Link to="/edit-profile"><button type="button">Editar</button></Link>{" "}
-            <Link to="/edit-profile-password"><button type="button">Editar Senha</button></Link>{" "}
-            <Link to="/edit-profile-image"><button type="button">Editar Imagem</button></Link>{" "}
+                <h1>Perfil</h1>
+                <Link to="/edit-profile"><button type="button">Editar</button></Link>{" "}
+                <Link to="/edit-profile-password"><button type="button">Editar Senha</button></Link>{" "}
+                <Link to="/edit-profile-image"><button type="button">Editar Imagem</button></Link>{" "}
 
-            {status.type === 'redError' ?
-                <Redirect to={{
-                    pathname: '/login',
-                    state: {
-                        type: "error",
-                        mensagem: status.mensagem
-                    }
-                }} /> : ""}
-            {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
+                {status.type === 'redError' ?
+                    <Redirect to={{
+                        pathname: '/login',
+                        state: {
+                            type: "error",
+                            mensagem: status.mensagem
+                        }
+                    }} /> : ""}
+                {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
 
-            <hr />
-            
-            <span>{data.id}</span><br />
-            {/* <span>{data.image ? <img src={endImg + data.image} alt="Imagem do Usuário" width="150" height="150" /> : <img src="https://celke.com.br/app/lms/assets/imagens/curso_clms/45/curso-de-node-js-react-native.jpg" alt="Imagem do Usuário" width="150" height="150" />}</span><br /> */}
-            <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span><br />
-            <span>{data.name}</span><br />
-            <span>{data.email}</span><br />
+                <hr />
+
+                <span>{data.id}</span><br />
+                {/* <span>{data.image ? <img src={endImg + data.image} alt="Imagem do Usuário" width="150" height="150" /> : <img src="https://celke.com.br/app/lms/assets/imagens/curso_clms/45/curso-de-node-js-react-native.jpg" alt="Imagem do Usuário" width="150" height="150" />}</span><br /> */}
+                <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span><br />
+                <span>{data.name}</span><br />
+                <span>{data.email}</span><br />
+
+            </div>
         </div>
     )
 }

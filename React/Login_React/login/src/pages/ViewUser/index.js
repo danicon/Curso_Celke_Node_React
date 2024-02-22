@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Redirect, useLocation } from 'react-router-dom';
 
-import {Menu} from '../../components/Menu'
+import { Navbar } from '../../components/Navbar'
+import { Sidebar } from '../../components/Sidebar'
 import { servDeleteUser } from '../../services/servDeleteUser';
 import api from '../../config/configApi';
 
@@ -83,43 +84,47 @@ export const ViewUser = (props) => {
 
     return (
         <div>
-            <Menu/>
+            <Navbar />
+            <div className="content">
+                <Sidebar active="users" />
 
-            <h1>Detalhes do Usuário</h1>
+                <h1>Detalhes do Usuário</h1>
 
-            <Link to="/users"><button type="button">Listar</button></Link>{" "}
-            <Link to={"/edit-user/" + data.id}><button type="button">Editar</button></Link>{" "}
-            <Link to={"/edit-user-password/" + data.id}><button type="button">Editar Senha</button></Link>{" "}
-            <Link to={"/edit-user-image/" + data.id}><button type="button">Editar Imagem</button></Link>{" "}
-            <Link to={"#"}><button type="button" onClick={() => deleteUser(data.id)}>Apagar</button></Link>
-            
+                <Link to="/users"><button type="button">Listar</button></Link>{" "}
+                <Link to={"/edit-user/" + data.id}><button type="button">Editar</button></Link>{" "}
+                <Link to={"/edit-user-password/" + data.id}><button type="button">Editar Senha</button></Link>{" "}
+                <Link to={"/edit-user-image/" + data.id}><button type="button">Editar Imagem</button></Link>{" "}
+                <Link to={"#"}><button type="button" onClick={() => deleteUser(data.id)}>Apagar</button></Link>
 
-            {status.type === 'redSuccess' ?
-                <Redirect to={{
-                    pathname: '/users',
-                    state: {
-                        type: "success",
-                        mensagem: status.mensagem
-                    }
-                }} /> : ""}
 
-            {status.type === 'redError' ?
-                <Redirect to={{
-                    pathname: '/users',
-                    state: {
-                        type: "error",
-                        mensagem: status.mensagem
-                    }
-                }} /> : ""}
-            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
-            {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
+                {status.type === 'redSuccess' ?
+                    <Redirect to={{
+                        pathname: '/users',
+                        state: {
+                            type: "success",
+                            mensagem: status.mensagem
+                        }
+                    }} /> : ""}
 
-            <hr />
-            
-            <span>{data.id}</span><br />
-            <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span><br />
-            <span>{data.name}</span><br />
-            <span>{data.email}</span><br />
+                {status.type === 'redError' ?
+                    <Redirect to={{
+                        pathname: '/users',
+                        state: {
+                            type: "error",
+                            mensagem: status.mensagem
+                        }
+                    }} /> : ""}
+                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
+
+                <hr />
+
+                <span>{data.id}</span><br />
+                <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span><br />
+                <span>{data.name}</span><br />
+                <span>{data.email}</span><br />
+
+            </div>
         </div>
     )
 }

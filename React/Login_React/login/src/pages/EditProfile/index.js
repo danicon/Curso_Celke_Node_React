@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import * as yup from 'yup'
 
-import {Menu} from '../../components/Menu'
+import { Navbar } from '../../components/Navbar'
+import { Sidebar } from '../../components/Sidebar'
 import api from '../../config/configApi';
 
 export const EditProfile = () => {
@@ -18,7 +19,7 @@ export const EditProfile = () => {
     const editUser = async e => {
         e.preventDefault();
 
-        if(!(await validate())) return
+        if (!(await validate())) return
 
         const headers = {
             'headers': {
@@ -101,7 +102,7 @@ export const EditProfile = () => {
                 email: email
             })
             return true
-        } catch(err) {
+        } catch (err) {
             // console.log(err)
             setStatus({
                 type: 'error',
@@ -109,50 +110,53 @@ export const EditProfile = () => {
             })
             return false
         }
-        
+
     }
 
     return (
         <div>
-            <Menu/>
+            <Navbar />
+            <div className="content">
+                <Sidebar active="profile" />
 
-            <h1>Editar a Senha</h1>
+                <h1>Editar a Senha</h1>
 
-            <Link to="/view-profile"><button type="button">Perfil</button></Link>{" "}
+                <Link to="/view-profile"><button type="button">Perfil</button></Link>{" "}
 
-            {status.type === 'redWarning' ?
-                <Redirect to={{
-                    pathname: '/login',
+                {status.type === 'redWarning' ?
+                    <Redirect to={{
+                        pathname: '/login',
+                        state: {
+                            type: "error",
+                            mensagem: status.mensagem
+                        }
+                    }} /> : ""}
+                {status.type === 'redSuccess' ? <Redirect to={{
+                    pathname: '/view-profile',
                     state: {
-                        type: "error",
+                        type: "success",
                         mensagem: status.mensagem
                     }
                 }} /> : ""}
-            {status.type === 'redSuccess' ? <Redirect to={{
-                pathname: '/view-profile',
-                state: {
-                    type: "success",
-                    mensagem: status.mensagem
-                }
-            }} /> : ""}
-            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
 
-            {/*1 - não encontrou - warning
+                {/*1 - não encontrou - warning
                 2 - Não editou - error
                 3 - API editou - success */}
-            <hr />
-            <form onSubmit={editUser}>
-                <label>Nome*: </label>
-                <input type="text" name="name" placeholder="Nome completo do usuário" value={name} onChange={text => setName(text.target.value)} /><br /><br />
+                <hr />
+                <form onSubmit={editUser}>
+                    <label>Nome*: </label>
+                    <input type="text" name="name" placeholder="Nome completo do usuário" value={name} onChange={text => setName(text.target.value)} /><br /><br />
 
-                <label>E-mail*: </label>
-                <input type="email" name="email" placeholder="Melhor e-mail do usuário" value={email} onChange={text => setEmail(text.target.value)} /><br /><br />
+                    <label>E-mail*: </label>
+                    <input type="email" name="email" placeholder="Melhor e-mail do usuário" value={email} onChange={text => setEmail(text.target.value)} /><br /><br />
 
-                * Campo obrigatório<br /><br />
+                    * Campo obrigatório<br /><br />
 
-                <button type="submit">Salvar</button>
-            </form>
+                    <button type="submit">Salvar</button>
+                </form>
 
+            </div>
         </div>
     )
 }

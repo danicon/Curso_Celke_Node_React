@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import * as yup from 'yup'
 
-import {Menu} from '../../components/Menu'
+import { Navbar } from '../../components/Navbar'
+import { Sidebar } from '../../components/Sidebar'
 import api from '../../config/configApi';
 import { servDeleteUser } from '../../services/servDeleteUser';
 
@@ -21,7 +22,7 @@ export const EditUserPassoword = (props) => {
     const editUser = async e => {
         e.preventDefault();
 
-        if(!(await validate())) return
+        if (!(await validate())) return
 
         const headers = {
             'headers': {
@@ -109,7 +110,7 @@ export const EditUserPassoword = (props) => {
                 password: password
             })
             return true
-        } catch(err) {
+        } catch (err) {
             // console.log(err)
             setStatus({
                 type: 'error',
@@ -117,18 +118,18 @@ export const EditUserPassoword = (props) => {
             })
             return false
         }
-        
+
     }
 
     const deleteUser = async (idUser) => {
         const response = await servDeleteUser(idUser);
         if (response) {
-            if(response.type === "success"){
+            if (response.type === "success") {
                 setStatus({
                     type: 'redSuccess',
                     mensagem: response.mensagem
                 });
-            }else{
+            } else {
                 setStatus({
                     type: "error",
                     mensagem: response.mensagem
@@ -140,53 +141,56 @@ export const EditUserPassoword = (props) => {
                 mensagem: 'Erro: Tente mais tarde!'
             });
         }
-    } 
+    }
 
     return (
         <div>
-            <Menu/>
+            <Navbar />
+            <div className="content">
+                <Sidebar active="users" />
 
-            <h1>Editar Usuário</h1>
+                <h1>Editar Usuário</h1>
 
-            <Link to="/users"><button type="button">Listar</button></Link>{" "}
-            <Link to={"/view-user/" + id}><button type="button">Visualizar</button></Link>{" "}
-            <Link to={"#"}><button type="button" onClick={() => deleteUser(id)}>Apagar</button></Link>
-            <br />
+                <Link to="/users"><button type="button">Listar</button></Link>{" "}
+                <Link to={"/view-user/" + id}><button type="button">Visualizar</button></Link>{" "}
+                <Link to={"#"}><button type="button" onClick={() => deleteUser(id)}>Apagar</button></Link>
+                <br />
 
-            {status.type === 'redWarning' ?
-                <Redirect to={{
+                {status.type === 'redWarning' ?
+                    <Redirect to={{
+                        pathname: '/users',
+                        state: {
+                            type: "error",
+                            mensagem: status.mensagem
+                        }
+                    }} /> : ""}
+                {status.type === 'redSuccess' ? <Redirect to={{
                     pathname: '/users',
                     state: {
-                        type: "error",
+                        type: "success",
                         mensagem: status.mensagem
                     }
                 }} /> : ""}
-            {status.type === 'redSuccess' ? <Redirect to={{
-                pathname: '/users',
-                state: {
-                    type: "success",
-                    mensagem: status.mensagem
-                }
-            }} /> : ""}
-            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
 
-            {/*1 - não encontrou - warning
+                {/*1 - não encontrou - warning
                 2 - Não editou - error
                 3 - API editou - success */}
-            <hr />
-            <form onSubmit={editUser}>
-                <label>Nome: {name}</label><br />
-                <label>E-mail: {email}</label><br /><br />
+                <hr />
+                <form onSubmit={editUser}>
+                    <label>Nome: {name}</label><br />
+                    <label>E-mail: {email}</label><br /><br />
 
 
-                <label>Senha*: </label>
-                <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={text => setPassword(text.target.value)} /><br /><br />
+                    <label>Senha*: </label>
+                    <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={text => setPassword(text.target.value)} /><br /><br />
 
-                * Campo obrigatório<br /><br />
+                    * Campo obrigatório<br /><br />
 
-                <button type="submit">Salvar</button>
-            </form>
+                    <button type="submit">Salvar</button>
+                </form>
 
+            </div>
         </div>
     )
 }

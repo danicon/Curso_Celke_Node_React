@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 
-import { Menu } from '../../components/Menu';
+import { Navbar } from '../../components/Navbar'
+import { Sidebar } from '../../components/Sidebar'
 import api from '../../config/configApi';
 import { servDeleteUser } from '../../services/servDeleteUser';
 
@@ -112,45 +113,48 @@ export const EditUserImage = (props) => {
 
     return (
         <div>
-            <Menu />
+            <Navbar />
+            <div className="content">
+                <Sidebar active="users" />
 
-            <h1>Editar Usuário</h1>
+                <h1>Editar Usuário</h1>
 
-            <Link to="/users"><button type="button">Listar</button></Link>{" "}
-            <Link to={"/view-user/" + id}><button type="button">Visualizar</button></Link>{" "}
-            <Link to={"#"}><button type="button" onClick={() => deleteUser(id)}>Apagar</button></Link>
-            <br />
+                <Link to="/users"><button type="button">Listar</button></Link>{" "}
+                <Link to={"/view-user/" + id}><button type="button">Visualizar</button></Link>{" "}
+                <Link to={"#"}><button type="button" onClick={() => deleteUser(id)}>Apagar</button></Link>
+                <br />
 
-            {status.type === 'redWarning' ?
-                <Redirect to={{
-                    pathname: '/users',
+                {status.type === 'redWarning' ?
+                    <Redirect to={{
+                        pathname: '/users',
+                        state: {
+                            type: "error",
+                            mensagem: status.mensagem
+                        }
+                    }} /> : ""}
+                {status.type === 'redSuccess' ? <Redirect to={{
+                    pathname: '/view-user/' + id,
                     state: {
-                        type: "error",
+                        type: "success",
                         mensagem: status.mensagem
                     }
                 }} /> : ""}
-            {status.type === 'redSuccess' ? <Redirect to={{
-                pathname: '/view-user/' + id,
-                state: {
-                    type: "success",
-                    mensagem: status.mensagem
-                }
-            }} /> : ""}
-            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
 
-            <hr />
-            <form onSubmit={editUser}>
-                <label>Imagem*: </label>
-                <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
+                <hr />
+                <form onSubmit={editUser}>
+                    <label>Imagem*: </label>
+                    <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
 
-                {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />}
-                <br /><br />
+                    {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />}
+                    <br /><br />
 
-                * Campo obrigatório<br /><br />
+                    * Campo obrigatório<br /><br />
 
-                <button type="submit">Salvar</button>
-            </form>
+                    <button type="submit">Salvar</button>
+                </form>
 
+            </div>
         </div>
     )
 }

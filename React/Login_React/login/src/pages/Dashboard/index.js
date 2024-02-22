@@ -1,6 +1,6 @@
 import React from 'react';
-import {Navbar} from "../../components/Navbar"
-import {Menu} from '../../components/Menu'
+import { Navbar } from "../../components/Navbar"
+import { Sidebar } from '../../components/Sidebar'
 
 export const Dashboard = () => {
 
@@ -9,8 +9,10 @@ export const Dashboard = () => {
     return (
         <div>
             <Navbar />
-            <Menu />
-            <h1>Dashboard</h1>    
+            <div className="content">
+                <Sidebar active="dashboard" />
+                <h1>Dashboard</h1>
+            </div>
         </div>
     );
 }

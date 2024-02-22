@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-import {Menu} from '../../components/Menu'
+import { Navbar } from '../../components/Navbar'
+import { Sidebar } from '../../components/Sidebar'
 import { servDeleteUser } from '../../services/servDeleteUser';
 import api from '../../config/configApi';
 
@@ -69,40 +70,44 @@ export const Users = () => {
     }
 
     return (
-        <>
-            <Menu/>
+        <div>
+            <Navbar />
+            <div className="content">
+                <Sidebar active="users" />
 
-            <h1>Listar Usuários</h1>
-            <Link to="add-user"><button type="button">Cadastrar</button></Link><br />
+                <h1>Listar Usuários</h1>
+                <Link to="add-user"><button type="button">Cadastrar</button></Link><br />
 
-            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
-            {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
+                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
 
-            <hr />
+                <hr />
 
-            {data.map(user => (
-                <div key={user.id}>
-                    <span>{user.id}</span><br />
-                    <span>{user.name}</span><br />
-                    <span>{user.email}</span><br /><br />
-                    <Link to={"/view-user/" + user.id}><button type="button">Visualizar</button></Link>{" "}
-                    <Link to={"/edit-user/" + user.id}><button type="button">Editar</button></Link>{" "}
-                    <Link to={"#"}>
-                        <button type="button" onClick={() => deleteUser(user.id)}>Apagar</button>
-                    </Link>
-                    <hr />
-                </div>
-            ))}
+                {data.map(user => (
+                    <div key={user.id}>
+                        <span>{user.id}</span><br />
+                        <span>{user.name}</span><br />
+                        <span>{user.email}</span><br /><br />
+                        <Link to={"/view-user/" + user.id}><button type="button">Visualizar</button></Link>{" "}
+                        <Link to={"/edit-user/" + user.id}><button type="button">Editar</button></Link>{" "}
+                        <Link to={"#"}>
+                            <button type="button" onClick={() => deleteUser(user.id)}>Apagar</button>
+                        </Link>
+                        <hr />
+                    </div>
+                ))}
 
-            {page !== 1 ? <button type="button" onClick={() => getUsers(1)}>Primeira</button> : <button type="button" disabled>Primeira</button>}{" "}
+                {page !== 1 ? <button type="button" onClick={() => getUsers(1)}>Primeira</button> : <button type="button" disabled>Primeira</button>}{" "}
 
-            {page !== 1 ? <button type="button" onClick={() => getUsers(page - 1)}>{page - 1}</button> : "" }{" "}
+                {page !== 1 ? <button type="button" onClick={() => getUsers(page - 1)}>{page - 1}</button> : ""}{" "}
 
-            <button type="button" disabled>{page}</button>{" "}
+                <button type="button" disabled>{page}</button>{" "}
 
-            {page + 1 <= lastPage ? <button type="button" onClick={() => getUsers(page + 1)}>{page + 1}</button> : ""}{" "}
+                {page + 1 <= lastPage ? <button type="button" onClick={() => getUsers(page + 1)}>{page + 1}</button> : ""}{" "}
 
-            {page !== lastPage ? <button type="button" onClick={() => getUsers(lastPage)}>Última</button> : <button type="button" disabled>Última</button>}{" "}
-        </>
+                {page !== lastPage ? <button type="button" onClick={() => getUsers(lastPage)}>Última</button> : <button type="button" disabled>Última</button>}{" "}
+
+            </div>
+        </div>
     );
 }
