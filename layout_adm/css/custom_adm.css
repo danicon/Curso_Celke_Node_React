@@ -482,6 +482,8 @@ body {
     color: var(--info-color);
 }
 
+/* Botãoi dropdown */
+
 .dropdown-btn-action {
     background-color: var(--primary-color);
     color: var(--fourth-color);
