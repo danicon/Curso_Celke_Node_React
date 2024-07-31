@@ -64,9 +64,9 @@ export const AddUser = () => {
 
     async function validate() {
         let schema = yup.object().shape({
-            name: yup.string("Erro: Necessario preencher todos os campos nome!").required("Erro: Necessario preencher todos os campos nome!"),
-            email: yup.string("Erro: Necessario preencher todos os campos e-mail!").email("Erro: Necessario preencher todos os campos e-mail!").required("Erro: Necessario preencher todos os campos e-mail!"),
-            password: yup.string("Erro: Necessario preencher todos os campos senha!").required("Erro: Necessario preencher todos os campos senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!")
+            password: yup.string("Erro: Necessario preencher o campo senha!").required("Erro: Necessario preencher o campo senha!").min(6, "Erro: A senha deve ter no minimo 6 caracteres!"),
+            email: yup.string("Erro: Necessario preencher o campo e-mail!").email("Erro: Necessario preencher o campo e-mail!").required("Erro: Necessario preencher o campo e-mail!"),
+            name: yup.string("Erro: Necessario preencher o campo nome!").required("Erro: Necessario preencher o campo nome!")
         })
 
         try {
@@ -94,37 +94,60 @@ export const AddUser = () => {
             <div className="content">
                 <Sidebar active="users" />
 
-                <h1>Cadastrar Usuário</h1>
-                <Link to="/users"><button type="button">Listar</button></Link><br />
+                <div class="wrapper">
+                    <div class="row">
 
+                        <div class="top-content-adm">
+                            <span class="title-content">Cadastrar Usuário</span>
+                            <div class="top-content-adm-rigth">
+                                <Link to="/users">
+                                    <button type="button" class="btn-info">Listar</button>
+                                </Link>
+                            </div>
+                        </div>
 
-                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
-                {status.type === 'success' ?
-                    <Redirect to={{
-                        pathname: '/users',
-                        state: {
-                            type: "success",
-                            mensagem: status.mensagem
-                        }
-                    }} />
-                    : ""}
+                        <div className="alert-content-adm">
+                            {status.type === 'error' ? <p className='alert-danger'>{status.mensagem}</p> : ""}
+                            {status.type === 'success' ?
+                                <Redirect to={{
+                                    pathname: '/users',
+                                    state: {
+                                        type: "success",
+                                        mensagem: status.mensagem
+                                    }
+                                }} />
+                                : ""}
+                        </div>
 
-                <hr />
+                        <div class="content-adm">
+                            <form onSubmit={addUser} class="form-adm">
 
-                <form onSubmit={addUser}>
-                    <label>Nome*: </label>
-                    <input type="text" name="name" placeholder="Nome completo do usuário" onChange={valueInput} /><br /><br />
+                                <div class="row-input">
+                                    <div class="column">
+                                        <label class="title-input">Nome</label>
+                                        <input type="text" name="name" id="name" class="input-adm" placeholder="Nome completo do usuário" onChange={valueInput} />
+                                    </div>
+                                </div>
 
-                    <label>E-mail*: </label>
-                    <input type="email" name="email" placeholder="Melhor e-mail do usuário" onChange={valueInput} /><br /><br />
+                                <div class="row-input">
+                                    <div class="column">
+                                        <label class="title-input">E-mail</label>
+                                        <input type="email" name="email" id="email" class="input-adm" placeholder="Melhor e-mail do usuário" onChange={valueInput} />
+                                    </div>
 
-                    <label>Senha*: </label>
-                    <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={valueInput} /><br /><br />
+                                    <div class="column">
+                                        <label class="title-input">Senha</label>
+                                        <input type="password" name="password" id="password" class="input-adm" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={valueInput} />
+                                    </div>
+                                </div>
 
-                    * Campo obrigatório<br /><br />
+                                <button type="submit" class="btn-success">Cadastrar</button>
 
-                    <button type="submit">Cadastrar</button>
-                </form>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>
