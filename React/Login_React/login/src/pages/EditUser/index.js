@@ -150,45 +150,71 @@ export const EditUser = (props) => {
             <div className="content">
                 <Sidebar active="users" />
 
-                <h1>Editar Usuário</h1>
+                <div class="wrapper">
+                    <div class="row">
 
-                <Link to="/users"><button type="button">Listar</button></Link>{" "}
-                <Link to={"/view-user/" + id}><button type="button">Visualizar</button></Link>{" "}
-                <Link to={"#"}><button type="button" onClick={() => deleteUser(id)}>Apagar</button></Link>
-                <br />
+                        <div class="top-content-adm">
+                            <span class="title-content">Editar Usuário</span>
+                            <div class="top-content-adm-rigth">
+                                <Link to="/users">
+                                    <button type="button" class="btn-info">Listar</button>
+                                </Link>{" "}
+                                <Link to={"/view-user/" + id}>
+                                    <button type="button" class="btn-info">Visualizar</button>
+                                </Link>{" "}
+                                <Link to={"#"}>
+                                    <button type="button" class="btn-info" onClick={() => deleteUser(id)}>Apagar</button>
+                                </Link>
+                            </div>
+                        </div>
 
-                {status.type === 'redWarning' ?
-                    <Redirect to={{
-                        pathname: '/users',
-                        state: {
-                            type: "error",
-                            mensagem: status.mensagem
-                        }
-                    }} /> : ""}
-                {status.type === 'redSuccess' ? <Redirect to={{
-                    pathname: '/users',
-                    state: {
-                        type: "success",
-                        mensagem: status.mensagem
-                    }
-                }} /> : ""}
-                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                        <div className="alert-content-adm">
+                            {status.type === 'redWarning' ?
+                                <Redirect to={{
+                                    pathname: '/users',
+                                    state: {
+                                        type: "error",
+                                        mensagem: status.mensagem
+                                    }
+                                }} /> : ""}
+                            {status.type === 'redSuccess' ? <Redirect to={{
+                                pathname: '/users',
+                                state: {
+                                    type: "success",
+                                    mensagem: status.mensagem
+                                }
+                            }} /> : ""}
+                            {status.type === 'error' ? <p className='alert-danger'>{status.mensagem}</p> : ""}
+                        </div>
 
-                {/*1 - não encontrou - warning
-                2 - Não editou - error
-                3 - API editou - success */}
-                <hr />
-                <form onSubmit={editUser}>
-                    <label>Nome*: </label>
-                    <input type="text" name="name" placeholder="Nome completo do usuário" value={name} onChange={text => setName(text.target.value)} /><br /><br />
+                        {/*1 - não encontrou - warning
+                        2 - Não editou - error
+                        3 - API editou - success */}
 
-                    <label>E-mail*: </label>
-                    <input type="email" name="email" placeholder="Melhor e-mail do usuário" value={email} onChange={text => setEmail(text.target.value)} /><br /><br />
+                        <div class="content-adm">
+                            <form onSubmit={editUser} class="form-adm">
 
-                    * Campo obrigatório<br /><br />
+                                <div class="row-input">
+                                    <div class="column">
+                                        <label class="title-input">Nome</label>
+                                        <input type="text" name="name" id="name" class="input-adm" placeholder="Nome completo do usuário" value={name} onChange={text => setName(text.target.value)} />
+                                    </div>
+                                </div>
 
-                    <button type="submit">Salvar</button>
-                </form>
+                                <div class="row-input">
+                                    <div class="column">
+                                        <label class="title-input">E-mail</label>
+                                        <input type="email" name="email" id="email" class="input-adm" placeholder="Melhor e-mail do usuário" value={email} onChange={text => setEmail(text.target.value)} />
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-success">Salvar</button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>
