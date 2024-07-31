@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 app.get('/users/:page', eAdmin, async (req, res) => {
     const {page = 1} = req.params
     // console.log(page)
-    const limit = 2
+    const limit = 40
     var lastPage = 1
 
     const countUser = await User.count()
