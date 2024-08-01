@@ -117,66 +117,42 @@ export const EditUserImage = (props) => {
             <div className="content">
                 <Sidebar active="users" />
 
-                <div class="wrapper">
-                    <div class="row">
+                <h1>Editar Usuário</h1>
 
-                        <div class="top-content-adm">
-                            <span class="title-content">Editar Usuário</span>
-                            <div class="top-content-adm-rigth">
-                                <Link to="/users">
-                                    <button type="button" class="btn-info">Listar</button>
-                                </Link>{" "}
-                                <Link to={"/view-user/" + id}>
-                                    <button type="button" class="btn-info">Visualizar</button>
-                                </Link>{" "}
-                                <Link to={"#"}>
-                                    <button type="button" class="btn-info" onClick={() => deleteUser(id)}>Apagar</button>
-                                </Link>
-                            </div>
-                        </div>
+                <Link to="/users"><button type="button">Listar</button></Link>{" "}
+                <Link to={"/view-user/" + id}><button type="button">Visualizar</button></Link>{" "}
+                <Link to={"#"}><button type="button" onClick={() => deleteUser(id)}>Apagar</button></Link>
+                <br />
 
-                        <div className="alert-content-adm">
-                            {status.type === 'redWarning' ?
-                                <Redirect to={{
-                                    pathname: '/users',
-                                    state: {
-                                        type: "error",
-                                        mensagem: status.mensagem
-                                    }
-                                }} /> : ""}
-                            {status.type === 'redSuccess' ? <Redirect to={{
-                                pathname: '/view-user/' + id,
-                                state: {
-                                    type: "success",
-                                    mensagem: status.mensagem
-                                }
-                            }} /> : ""}
-                            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
-                        </div>
+                {status.type === 'redWarning' ?
+                    <Redirect to={{
+                        pathname: '/users',
+                        state: {
+                            type: "error",
+                            mensagem: status.mensagem
+                        }
+                    }} /> : ""}
+                {status.type === 'redSuccess' ? <Redirect to={{
+                    pathname: '/view-user/' + id,
+                    state: {
+                        type: "success",
+                        mensagem: status.mensagem
+                    }
+                }} /> : ""}
+                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
 
-                        <div class="content-adm">
-                            <form onSubmit={editUser} class="form-adm">
+                <hr />
+                <form onSubmit={editUser}>
+                    <label>Imagem*: </label>
+                    <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
 
-                                <div class="row-input">
-                                    <div class="column">
-                                        <label class="title-input">Imagem</label>
-                                        <input type="file" name="image" id="image" class="input-adm" onChange={e => setImage(e.target.files[0])} />
-                                    </div>
-                                </div>
+                    {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />}
+                    <br /><br />
 
-                                <div class="row-input">
-                                    <div class="column">
-                                        {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />}
-                                    </div>
-                                </div>
+                    * Campo obrigatório<br /><br />
 
-                                <button type="submit" class="btn-success">Salvar</button>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
+                    <button type="submit">Salvar</button>
+                </form>
 
             </div>
         </div>
