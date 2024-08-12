@@ -121,7 +121,7 @@ export const EditUserImage = (props) => {
                     <div class="row">
 
                         <div class="top-content-adm">
-                            <span class="title-content">Editar Usuário</span>
+                            <span class="title-content">Editar Imagem</span>
                             <div class="top-content-adm-rigth">
                                 <Link to="/users">
                                     <button type="button" class="btn-info">Listar</button>

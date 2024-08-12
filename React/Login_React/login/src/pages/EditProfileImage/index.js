@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Navbar } from '../../components/Navbar'
 import { Sidebar } from '../../components/Sidebar'
 
@@ -95,31 +95,53 @@ export const EditProfileImage = () => {
             <div className="content">
                 <Sidebar active="profile" />
 
-                <h1>Editar Foto do Perfil</h1>
+                <div class="wrapper">
+                    <div class="row">
 
-                {status.type === 'redSuccess' ? <Redirect to={{
-                    pathname: '/view-profile',
-                    state: {
-                        type: "success",
-                        mensagem: status.mensagem
-                    }
-                }} /> : ""}
-                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                        <div class="top-content-adm">
+                            <span class="title-content">Editar Foto do Perfil</span>
+                            <div class="top-content-adm-rigth">
+                                <Link to="/view-profile">
+                                    <button type="button" class="btn-info">Perfil</button>
+                                </Link>
+                            </div>
+                        </div>
 
-                <form onSubmit={editUser}>
-                    <label>Imagem*: </label>
-                    <input type="file" name="image" onChange={e => setImage(e.target.files[0])} /><br /><br />
+                        <div className="alert-content-adm">
+                            {status.type === 'redSuccess' ? <Redirect to={{
+                                pathname: '/view-profile',
+                                state: {
+                                    type: "success",
+                                    mensagem: status.mensagem
+                                }
+                            }} /> : ""}
+                            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                        </div>
 
-                    {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />}
+                        <div class="content-adm">
+                            <form onSubmit={editUser} class="form-adm">
 
-                    {/* {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />} */}
-                    <br /><br />
+                                <div class="row-input">
+                                    <div class="column">
+                                        <label class="title-input">Imagem</label>
+                                        <input type="file" name="image" id="image" class="input-adm" onChange={e => setImage(e.target.files[0])} />
+                                    </div>
+                                </div>
 
-                    * Campo obrigatório<br /><br />
+                                <div class="row-input">
+                                    <div class="column">
+                                        {image ? <img src={URL.createObjectURL(image)} alt="Imagem do usuário" width="150" height="150" /> : <img src={endImg} alt="Imagem do usuário" width="150" height="150" />}
+                                    </div>
+                                </div>
 
-                    <button type="submit">Salvar</button>
+                                <button type="submit" class="btn-success">Salvar</button>
 
-                </form>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
 
             </div>
         </div>
