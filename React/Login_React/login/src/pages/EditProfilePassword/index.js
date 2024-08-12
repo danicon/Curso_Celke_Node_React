@@ -117,42 +117,66 @@ export const EditProfilePassoword = () => {
             <div className="content">
                 <Sidebar active="profile" />
 
-                <h1>Editar Usuário</h1>
+                <div class="wrapper">
+                    <div class="row">
 
-                <Link to="/view-profile"><button type="button">Perfil</button></Link>{" "}
+                        <div class="top-content-adm">
+                            <span class="title-content">Editar Usuário</span>
+                            <div class="top-content-adm-rigth">
+                                <Link to="/view-profile">
+                                    <button type="button" class="btn-info">Perfil</button>
+                                </Link>
+                            </div>
+                        </div>
 
-                {status.type === 'redWarning' ?
-                    <Redirect to={{
-                        pathname: '/login',
-                        state: {
-                            type: "error",
-                            mensagem: status.mensagem
-                        }
-                    }} /> : ""}
-                {status.type === 'redSuccess' ? <Redirect to={{
-                    pathname: '/view-profile',
-                    state: {
-                        type: "success",
-                        mensagem: status.mensagem
-                    }
-                }} /> : ""}
-                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                        <div className="alert-content-adm">
+                            {status.type === 'redWarning' ?
+                                <Redirect to={{
+                                    pathname: '/login',
+                                    state: {
+                                        type: "error",
+                                        mensagem: status.mensagem
+                                    }
+                                }} /> : ""}
+                            {status.type === 'redSuccess' ? <Redirect to={{
+                                pathname: '/view-profile',
+                                state: {
+                                    type: "success",
+                                    mensagem: status.mensagem
+                                }
+                            }} /> : ""}
+                            {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
+                        </div>
 
-                {/*1 - não encontrou - warning
-                2 - Não editou - error
-                3 - API editou - success */}
-                <hr />
-                <form onSubmit={editUser}>
-                    <label>Nome: {name}</label><br />
-                    <label>E-mail: {email}</label><br /><br />
+                        {/*1 - não encontrou - warning
+                        2 - Não editou - error
+                        3 - API editou - success */}
 
-                    <label>Senha*: </label>
-                    <input type="password" name="password" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={text => setPassword(text.target.value)} /><br /><br />
+                        <div class="content-adm">
+                            <form onSubmit={editUser} class="form-adm">
+                                <div class="row-input">
+                                    <div class="column">
+                                        <label>Nome: {name}</label>
+                                    </div>
 
-                    * Campo obrigatório<br /><br />
+                                    <div class="column">
+                                        <label>E-mail: {email}</label>
+                                    </div>
+                                </div>
 
-                    <button type="submit">Salvar</button>
-                </form>
+                                <div class="row-input">
+                                    <div class="column">
+                                        <label class="title-input">Senha</label>
+                                        <input type="password" name="password" id="password" class="input-adm" placeholder="Senha para acessar o sistema" autoComplete="on" onChange={text => setPassword(text.target.value)} />
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="btn-success">Salvar</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>
