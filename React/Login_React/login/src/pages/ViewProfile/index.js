@@ -65,28 +65,64 @@ export const ViewProfile = () => {
             <div className="content">
                 <Sidebar active="profile" />
 
-                <h1>Perfil</h1>
-                <Link to="/edit-profile"><button type="button">Editar</button></Link>{" "}
-                <Link to="/edit-profile-password"><button type="button">Editar Senha</button></Link>{" "}
-                <Link to="/edit-profile-image"><button type="button">Editar Imagem</button></Link>{" "}
+                <div class="wrapper">
+                    <div class="row">
 
-                {status.type === 'redError' ?
-                    <Redirect to={{
-                        pathname: '/login',
-                        state: {
-                            type: "error",
-                            mensagem: status.mensagem
-                        }
-                    }} /> : ""}
-                {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
+                        <div class="top-content-adm">
+                            <span class="title-content">Visualizar Perfil</span>
+                            <div class="top-content-adm-rigth">
+                                <Link to="/edit-profile">
+                                    <button type="button" class="btn-warning">Editar</button>
+                                </Link>{" "}
 
-                <hr />
+                                <Link to="/edit-profile-password">
+                                    <button type="button" class="btn-warning">Editar Senha</button>
+                                </Link>{" "}
 
-                <span>{data.id}</span><br />
-                {/* <span>{data.image ? <img src={endImg + data.image} alt="Imagem do Usuário" width="150" height="150" /> : <img src="https://celke.com.br/app/lms/assets/imagens/curso_clms/45/curso-de-node-js-react-native.jpg" alt="Imagem do Usuário" width="150" height="150" />}</span><br /> */}
-                <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span><br />
-                <span>{data.name}</span><br />
-                <span>{data.email}</span><br />
+                                <Link to="/edit-profile-image">
+                                    <button type="button" class="btn-warning">Editar Imagem</button>
+                                </Link>{" "}
+                            </div>
+                        </div>
+
+                        <div className="alert-content-adm">
+                            {status.type === 'redError' ?
+                                <Redirect to={{
+                                    pathname: '/login',
+                                    state: {
+                                        type: "error",
+                                        mensagem: status.mensagem
+                                    }
+                                }} /> : ""}
+                            {status.type === 'success' ? <p className='alert-success'>{status.mensagem}</p> : ""}
+                        </div>
+
+
+                        <div class="content-adm">
+                            <div class="view-det-adm">
+                                <span class="view-adm-title">Imagem: </span>
+                                <span class="view-adm-info">{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span>
+                            </div>
+
+                            <div class="view-det-adm">
+                                <span class="view-adm-title">ID: </span>
+                                <span class="view-adm-info">{data.id}</span>
+                            </div>
+
+                            <div class="view-det-adm">
+                                <span class="view-adm-title">Nome: </span>
+                                <span class="view-adm-info">{data.name}</span>
+                            </div>
+
+                            <div class="view-det-adm">
+                                <span class="view-adm-title">E-mail: </span>
+                                <span class="view-adm-info">{data.email}</span>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
 
             </div>
         </div>

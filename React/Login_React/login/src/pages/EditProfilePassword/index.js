@@ -171,7 +171,7 @@ export const EditProfilePassoword = () => {
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn-success">Salvar</button>
+                                <button type="submit" class="btn-warning">Salvar</button>
                             </form>
                         </div>
 

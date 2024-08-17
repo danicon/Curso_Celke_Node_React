@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from '../../Context/AuthContext'
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 export const Navbar = () => {
 
@@ -33,11 +34,13 @@ export const Navbar = () => {
                     </span>
                     <div id="dropNavbarUser" className="dropdow-menu setting">
                         <div className="item">
+                            <Link to="/view-profile">
                             <span className="fa-solid fa-user"></span> Perfil
+                            </Link>
                         </div>
-                        <div className="item">
+                        {/* <div className="item">
                             <span className="fa-solid fa-gear"></span> Configuração
-                        </div>
+                        </div> */}
                         <div className="item" onClick={handleLogout}>
                             <span className="fa-solid fa-right-from-bracket"></span> Sair
                         </div>

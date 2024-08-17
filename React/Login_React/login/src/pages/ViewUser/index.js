@@ -88,41 +88,80 @@ export const ViewUser = (props) => {
             <div className="content">
                 <Sidebar active="users" />
 
-                <h1>Detalhes do Usuário</h1>
+                <div class="wrapper">
+                    <div class="row">
 
-                <Link to="/users"><button type="button">Listar</button></Link>{" "}
-                <Link to={"/edit-user/" + data.id}><button type="button">Editar</button></Link>{" "}
-                <Link to={"/edit-user-password/" + data.id}><button type="button">Editar Senha</button></Link>{" "}
-                <Link to={"/edit-user-image/" + data.id}><button type="button">Editar Imagem</button></Link>{" "}
-                <Link to={"#"}><button type="button" onClick={() => deleteUser(data.id)}>Apagar</button></Link>
+                        <div class="top-content-adm">
+                            <span class="title-content">Visualizar Usuário</span>
+                            <div class="top-content-adm-rigth">
+                                <Link to="/users">
+                                    <button type="button" class="btn-info">Listar</button>
+                                </Link>{" "}
 
+                                <Link to={"/edit-user/" + data.id}>
+                                    <button type="button" class="btn-warning">Editar</button>
+                                </Link>{" "}
 
-                {status.type === 'redSuccess' ?
-                    <Redirect to={{
-                        pathname: '/users',
-                        state: {
-                            type: "success",
-                            mensagem: status.mensagem
-                        }
-                    }} /> : ""}
+                                <Link to={"/edit-user-password/" + data.id}>
+                                    <button type="button" class="btn-warning">Editar Senha</button>
+                                </Link>{" "}
 
-                {status.type === 'redError' ?
-                    <Redirect to={{
-                        pathname: '/users',
-                        state: {
-                            type: "error",
-                            mensagem: status.mensagem
-                        }
-                    }} /> : ""}
-                {status.type === 'error' ? <p style={{ color: "#ff0000" }}>{status.mensagem}</p> : ""}
-                {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
+                                <Link to={"/edit-user-image/" + data.id}>
+                                    <button type="button" class="btn-warning">Editar Imagem</button>
+                                </Link>{" "}
 
-                <hr />
+                                <Link to={"#"}>
+                                    <button type="button" class="btn-danger" onClick={() => deleteUser(data.id)}>Apagar</button>
+                                </Link>
+                            </div>
+                        </div>
 
-                <span>{data.id}</span><br />
-                <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span><br />
-                <span>{data.name}</span><br />
-                <span>{data.email}</span><br />
+                        <div className="alert-content-adm">
+                            {status.type === 'redSuccess' ?
+                                <Redirect to={{
+                                    pathname: '/users',
+                                    state: {
+                                        type: "success",
+                                        mensagem: status.mensagem
+                                    }
+                                }} /> : ""}
+
+                            {status.type === 'redError' ?
+                                <Redirect to={{
+                                    pathname: '/users',
+                                    state: {
+                                        type: "error",
+                                        mensagem: status.mensagem
+                                    }
+                                }} /> : ""}
+                            {status.type === 'error' ? <p className='alert-danger'>{status.mensagem}</p> : ""}
+                            {status.type === 'success' ? <p className='alert-success'>{status.mensagem}</p> : ""}
+                        </div>
+
+                        <div class="content-adm">
+                            <div class="view-det-adm">
+                                <span class="view-adm-title">Imagem: </span>
+                                <span class="view-adm-info">{<img src={endImg} alt="Imagem do Usuário" width="150" height="150" />}</span>
+                            </div>
+
+                            <div class="view-det-adm">
+                                <span class="view-adm-title">ID: </span>
+                                <span class="view-adm-info">{data.id}</span>
+                            </div>
+
+                            <div class="view-det-adm">
+                                <span class="view-adm-title">Nome: </span>
+                                <span class="view-adm-info">{data.name}</span>
+                            </div>
+
+                            <div class="view-det-adm">
+                                <span class="view-adm-title">E-mail: </span>
+                                <span class="view-adm-info">{data.email}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
 
             </div>
         </div>

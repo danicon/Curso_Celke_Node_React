@@ -160,10 +160,10 @@ export const EditUser = (props) => {
                                     <button type="button" class="btn-info">Listar</button>
                                 </Link>{" "}
                                 <Link to={"/view-user/" + id}>
-                                    <button type="button" class="btn-info">Visualizar</button>
+                                    <button type="button" class="btn-primary">Visualizar</button>
                                 </Link>{" "}
                                 <Link to={"#"}>
-                                    <button type="button" class="btn-info" onClick={() => deleteUser(id)}>Apagar</button>
+                                    <button type="button" class="btn-danger" onClick={() => deleteUser(id)}>Apagar</button>
                                 </Link>
                             </div>
                         </div>
@@ -208,7 +208,7 @@ export const EditUser = (props) => {
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn-success">Salvar</button>
+                                <button type="submit" class="btn-warning">Salvar</button>
 
                             </form>
                         </div>
